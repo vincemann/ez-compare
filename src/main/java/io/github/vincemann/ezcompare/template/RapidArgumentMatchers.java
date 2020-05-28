@@ -25,14 +25,11 @@ public class RapidArgumentMatchers {
      * @return
      */
     public static <T> T fullRefEq(T value, String... ignoredProperties) {
-        reportMatcher(new RapidReflectionEquals(
-                value,
+        return fullRefEq(value,
                 CompareTemplate.FullCompareConfig.builder()
                         .ignoredProperties(Sets.newHashSet(ignoredProperties))
                         .build()
-                        .convert())
         );
-        return null;
     }
 
 
@@ -40,7 +37,8 @@ public class RapidArgumentMatchers {
         return fullRefEq(value,
                 Arrays.stream(ignoredProperties)
                         .map(MethodNameUtil::propertyNameOf)
-                        .collect(Collectors.toSet()).toArray(new String[0])
+                        .distinct()
+                        .toArray(String[]::new)
         );
     }
 
@@ -49,10 +47,7 @@ public class RapidArgumentMatchers {
         return null;
     }
 
-    /**
-     * @param ignoreNull should fields of root side be ignored, if the field value is null?
-     * @return
-     */
+
     public static <T> T partialRefEq(T value,) {
         reportMatcher(new RapidReflectionEquals(value, ignoreNull, excludeFields));
         return null;

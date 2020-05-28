@@ -1,6 +1,7 @@
 package io.github.vincemann.ezcompare.template;
 
-public interface SelectiveOptionsConfigurer extends FullCompareOptionsConfigurer, PartialCompareOptionsConfigurer{
+import org.checkerframework.checker.units.qual.C;
 
+public interface SelectiveOptionsConfigurer extends FullCompareOptionsConfigurer, PartialCompareOptionsConfigurer{
 
 }

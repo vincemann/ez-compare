@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Getter
@@ -114,22 +113,16 @@ public class CompareTemplate
         return this;
     }
 
-//    @Override
-//    public FullCompareOptionsConfigurer configure(FullCompareConfig config) {
-//        this.fullCompareConfig = config;
-//        return this;
-//    }
-
 
     @Override
-    public FullCompareOptionsConfigurer configure(OptionsConfigurer<FullCompareConfig> configurer) {
+    public FullCompareOptionsConfigurer configure(FullCompareConfigConfigurer configurer) {
         configurer.configure(fullCompareConfig);
         return this;
     }
 
     @Override
-    public PartialCompareOptionsConfigurer configure(PartialCompareConfig config) {
-        this.partialCompareConfig = config;
+    public PartialCompareOptionsConfigurer configure(PartialCompareConfigConfigurer configurer) {
+        configurer.configure(partialCompareConfig);
         return this;
     }
 

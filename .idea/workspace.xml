@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e58ad0d4-e057-425d-93f7-a022bad3366a" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="usePluginRegistry" value="true" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+        <option name="jdkForImporter" value="1.8.0_241" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1cXYRg2fYHmGDCLQXKWi6kpqMEg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="io.github.vincemann.ezcompare" />
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="io.github.vincemann.ezcompare.util" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.io.github.vincemann.ezcompare in ez-compare">
+    <configuration name="CompareTemplateFullEqualTest.allSame_butRootHasFieldThatCompareDoesNotHave_withoutValue_useNullForNotFoundEnabled_shouldBeEqual" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ez-compare" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.github.vincemann.ezcompare.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="io.github.vincemann.ezcompare" />
+      <option name="MAIN_CLASS_NAME" value="io.github.vincemann.ezcompare.CompareTemplateFullEqualTest" />
+      <option name="METHOD_NAME" value="allSame_butRootHasFieldThatCompareDoesNotHave_withoutValue_useNullForNotFoundEnabled_shouldBeEqual" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompareTemplateFullEqualTest.allValuesSame_exceptOne_shouldNotBeEqual" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ez-compare" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.github.vincemann.ezcompare.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="io.github.vincemann.ezcompare" />
+      <option name="MAIN_CLASS_NAME" value="io.github.vincemann.ezcompare.CompareTemplateFullEqualTest" />
+      <option name="METHOD_NAME" value="allValuesSame_exceptOne_shouldNotBeEqual" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompareTemplateSelectPropertyTest.onlyCheckedProperty_isNullForBoth_shouldBeEqual" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ez-compare" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.github.vincemann.ezcompare.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="io.github.vincemann.ezcompare" />
+      <option name="MAIN_CLASS_NAME" value="io.github.vincemann.ezcompare.CompareTemplateSelectPropertyTest" />
+      <option name="METHOD_NAME" value="onlyCheckedProperty_isNullForBoth_shouldBeEqual" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompareTemplateSelectPropertyTest.onlyCheckedProperty_oneIsNull_shouldBeNotEqual" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ez-compare" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.github.vincemann.ezcompare.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="io.github.vincemann.ezcompare" />
+      <option name="MAIN_CLASS_NAME" value="io.github.vincemann.ezcompare.CompareTemplateSelectPropertyTest" />
+      <option name="METHOD_NAME" value="onlyCheckedProperty_oneIsNull_shouldBeNotEqual" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="io.github.vincemann.ezcompare in ez-compare" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ez-compare" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.github.vincemann.ezcompare.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="io.github.vincemann.ezcompare" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.io.github.vincemann.ezcompare in ez-compare" />
+        <item itemvalue="JUnit.CompareTemplateSelectPropertyTest.onlyCheckedProperty_oneIsNull_shouldBeNotEqual" />
+        <item itemvalue="JUnit.CompareTemplateSelectPropertyTest.onlyCheckedProperty_isNullForBoth_shouldBeEqual" />
+        <item itemvalue="JUnit.CompareTemplateFullEqualTest.allSame_butRootHasFieldThatCompareDoesNotHave_withoutValue_useNullForNotFoundEnabled_shouldBeEqual" />
+        <item itemvalue="JUnit.CompareTemplateFullEqualTest.allValuesSame_exceptOne_shouldNotBeEqual" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e58ad0d4-e057-425d-93f7-a022bad3366a" name="Default Changelist" comment="" />
+      <created>1590676398570</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1590676398570</updated>
+      <workItem from="1590676401398" duration="1666000" />
+      <workItem from="1590678097849" duration="1414000" />
+      <workItem from="1590690811714" duration="15655000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="547" y="166" width="802" height="672" key="#Custom_Plugin_Repositories" timestamp="1590677991477">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state x="547" y="166" width="802" height="672" key="#Custom_Plugin_Repositories/0.0.1912.1015@0.0.1912.1015" timestamp="1590677991477" />
+    <state x="764" y="220" width="376" height="570" key="#com.intellij.ide.util.MemberChooser" timestamp="1590705666485">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state x="764" y="220" width="376" height="570" key="#com.intellij.ide.util.MemberChooser/0.0.1912.1015@0.0.1912.1015" timestamp="1590705666485" />
+    <state x="387" y="435" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1590699230437">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state x="387" y="435" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1912.1015@0.0.1912.1015" timestamp="1590699230437" />
+    <state x="717" y="369" width="543" height="287" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1590698985477">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state x="717" y="369" width="543" height="287" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1912.1015@0.0.1912.1015" timestamp="1590698985477" />
+    <state x="717" y="390" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1590699231492">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state x="717" y="390" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1912.1015@0.0.1912.1015" timestamp="1590699231492" />
+    <state x="629" y="0" width="645" height="1010" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1590706218204">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state x="629" y="0" width="645" height="1010" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1912.1015@0.0.1912.1015" timestamp="1590706218204" />
+    <state width="559" height="485" key="DebuggerActiveHint" timestamp="1590697356603">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state width="559" height="485" key="DebuggerActiveHint/0.0.1912.1015@0.0.1912.1015" timestamp="1590697356603" />
+    <state width="1870" height="270" key="GridCell.Tab.0.bottom" timestamp="1590702882940">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state width="1870" height="270" key="GridCell.Tab.0.bottom/0.0.1912.1015@0.0.1912.1015" timestamp="1590702882940" />
+    <state width="1870" height="270" key="GridCell.Tab.0.center" timestamp="1590702882940">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state width="1870" height="270" key="GridCell.Tab.0.center/0.0.1912.1015@0.0.1912.1015" timestamp="1590702882940" />
+    <state width="1870" height="270" key="GridCell.Tab.0.left" timestamp="1590702882940">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state width="1870" height="270" key="GridCell.Tab.0.left/0.0.1912.1015@0.0.1912.1015" timestamp="1590702882940" />
+    <state width="1870" height="270" key="GridCell.Tab.0.right" timestamp="1590702882940">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state width="1870" height="270" key="GridCell.Tab.0.right/0.0.1912.1015@0.0.1912.1015" timestamp="1590702882940" />
+    <state width="1870" height="334" key="GridCell.Tab.1.bottom" timestamp="1590697498417">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state width="1870" height="334" key="GridCell.Tab.1.bottom/0.0.1912.1015@0.0.1912.1015" timestamp="1590697498417" />
+    <state width="1870" height="334" key="GridCell.Tab.1.center" timestamp="1590697498416">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state width="1870" height="334" key="GridCell.Tab.1.center/0.0.1912.1015@0.0.1912.1015" timestamp="1590697498416" />
+    <state width="1870" height="334" key="GridCell.Tab.1.left" timestamp="1590697498416">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state width="1870" height="334" key="GridCell.Tab.1.left/0.0.1912.1015@0.0.1912.1015" timestamp="1590697498416" />
+    <state width="1870" height="334" key="GridCell.Tab.1.right" timestamp="1590697498416">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state width="1870" height="334" key="GridCell.Tab.1.right/0.0.1912.1015@0.0.1912.1015" timestamp="1590697498416" />
+    <state x="439" y="85" width="1026" height="840" key="SettingsEditor" timestamp="1590691048835">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state x="439" y="85" width="1026" height="840" key="SettingsEditor/0.0.1912.1015@0.0.1912.1015" timestamp="1590691048835" />
+    <state x="635" y="337" key="com.intellij.ide.util.TipDialog" timestamp="1590678256166">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state x="635" y="337" key="com.intellij.ide.util.TipDialog/0.0.1912.1015@0.0.1912.1015" timestamp="1590678256166" />
+    <state x="531" y="223" width="849" height="568" key="find.popup" timestamp="1590697307225">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state x="531" y="223" width="849" height="568" key="find.popup/0.0.1912.1015@0.0.1912.1015" timestamp="1590697307225" />
+    <state x="619" y="222" width="672" height="678" key="search.everywhere.popup" timestamp="1590703621786">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state x="619" y="222" width="672" height="678" key="search.everywhere.popup/0.0.1912.1015@0.0.1912.1015" timestamp="1590703621786" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidEqualsBuilder.java</url>
+          <line>174</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidEqualsBuilder.java</url>
+          <line>746</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidEqualsBuilder.java</url>
+          <line>168</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidEqualsBuilder.java</url>
+          <line>202</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

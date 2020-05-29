@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e58ad0d4-e057-425d-93f7-a022bad3366a" name="Default Changelist" comment="" />
+    <list default="true" id="e58ad0d4-e057-425d-93f7-a022bad3366a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/CompareTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/CompareTemplate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/FullCompareOptionsConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/FullCompareOptionsConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/PartialCompareOptionsConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/PartialCompareOptionsConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidArgumentMatchers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidArgumentMatchers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare/CompareTemplateFullEqualTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare/CompareTemplateFullEqualTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +22,9 @@
         <option value="Interface" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -37,6 +48,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare" />
@@ -158,7 +170,8 @@
       <updated>1590676398570</updated>
       <workItem from="1590676401398" duration="1666000" />
       <workItem from="1590678097849" duration="1414000" />
-      <workItem from="1590690811714" duration="16537000" />
+      <workItem from="1590690811714" duration="16661000" />
+      <workItem from="1590760066927" duration="2941000" />
     </task>
     <servers />
   </component>
@@ -170,10 +183,10 @@
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
     <state x="547" y="166" width="802" height="672" key="#Custom_Plugin_Repositories/0.0.1912.1015@0.0.1912.1015" timestamp="1590677991477" />
-    <state x="764" y="220" width="376" height="570" key="#com.intellij.ide.util.MemberChooser" timestamp="1590705666485">
+    <state x="764" y="220" width="376" height="570" key="#com.intellij.ide.util.MemberChooser" timestamp="1590762236106">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state x="764" y="220" width="376" height="570" key="#com.intellij.ide.util.MemberChooser/0.0.1912.1015@0.0.1912.1015" timestamp="1590705666485" />
+    <state x="764" y="220" width="376" height="570" key="#com.intellij.ide.util.MemberChooser/0.0.1912.1015@0.0.1912.1015" timestamp="1590762236106" />
     <state x="387" y="435" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1590699230437">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
@@ -194,38 +207,38 @@
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
     <state width="559" height="485" key="DebuggerActiveHint/0.0.1912.1015@0.0.1912.1015" timestamp="1590697356603" />
-    <state width="1870" height="270" key="GridCell.Tab.0.bottom" timestamp="1590702882940">
+    <state width="1870" height="408" key="GridCell.Tab.0.bottom" timestamp="1590762815123">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state width="1870" height="270" key="GridCell.Tab.0.bottom/0.0.1912.1015@0.0.1912.1015" timestamp="1590702882940" />
-    <state width="1870" height="270" key="GridCell.Tab.0.center" timestamp="1590702882940">
+    <state width="1870" height="408" key="GridCell.Tab.0.bottom/0.0.1912.1015@0.0.1912.1015" timestamp="1590762815123" />
+    <state width="1870" height="408" key="GridCell.Tab.0.center" timestamp="1590762815122">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state width="1870" height="270" key="GridCell.Tab.0.center/0.0.1912.1015@0.0.1912.1015" timestamp="1590702882940" />
-    <state width="1870" height="270" key="GridCell.Tab.0.left" timestamp="1590702882940">
+    <state width="1870" height="408" key="GridCell.Tab.0.center/0.0.1912.1015@0.0.1912.1015" timestamp="1590762815122" />
+    <state width="1870" height="408" key="GridCell.Tab.0.left" timestamp="1590762815122">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state width="1870" height="270" key="GridCell.Tab.0.left/0.0.1912.1015@0.0.1912.1015" timestamp="1590702882940" />
-    <state width="1870" height="270" key="GridCell.Tab.0.right" timestamp="1590702882940">
+    <state width="1870" height="408" key="GridCell.Tab.0.left/0.0.1912.1015@0.0.1912.1015" timestamp="1590762815122" />
+    <state width="1870" height="408" key="GridCell.Tab.0.right" timestamp="1590762815122">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state width="1870" height="270" key="GridCell.Tab.0.right/0.0.1912.1015@0.0.1912.1015" timestamp="1590702882940" />
-    <state width="1870" height="334" key="GridCell.Tab.1.bottom" timestamp="1590697498417">
+    <state width="1870" height="408" key="GridCell.Tab.0.right/0.0.1912.1015@0.0.1912.1015" timestamp="1590762815122" />
+    <state width="1870" height="334" key="GridCell.Tab.1.bottom" timestamp="1590762656280">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state width="1870" height="334" key="GridCell.Tab.1.bottom/0.0.1912.1015@0.0.1912.1015" timestamp="1590697498417" />
-    <state width="1870" height="334" key="GridCell.Tab.1.center" timestamp="1590697498416">
+    <state width="1870" height="334" key="GridCell.Tab.1.bottom/0.0.1912.1015@0.0.1912.1015" timestamp="1590762656280" />
+    <state width="1870" height="334" key="GridCell.Tab.1.center" timestamp="1590762656279">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state width="1870" height="334" key="GridCell.Tab.1.center/0.0.1912.1015@0.0.1912.1015" timestamp="1590697498416" />
-    <state width="1870" height="334" key="GridCell.Tab.1.left" timestamp="1590697498416">
+    <state width="1870" height="334" key="GridCell.Tab.1.center/0.0.1912.1015@0.0.1912.1015" timestamp="1590762656279" />
+    <state width="1870" height="334" key="GridCell.Tab.1.left" timestamp="1590762656279">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state width="1870" height="334" key="GridCell.Tab.1.left/0.0.1912.1015@0.0.1912.1015" timestamp="1590697498416" />
-    <state width="1870" height="334" key="GridCell.Tab.1.right" timestamp="1590697498416">
+    <state width="1870" height="334" key="GridCell.Tab.1.left/0.0.1912.1015@0.0.1912.1015" timestamp="1590762656279" />
+    <state width="1870" height="334" key="GridCell.Tab.1.right" timestamp="1590762656280">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state width="1870" height="334" key="GridCell.Tab.1.right/0.0.1912.1015@0.0.1912.1015" timestamp="1590697498416" />
+    <state width="1870" height="334" key="GridCell.Tab.1.right/0.0.1912.1015@0.0.1912.1015" timestamp="1590762656280" />
     <state x="439" y="85" width="1026" height="840" key="SettingsEditor" timestamp="1590691048835">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
@@ -238,10 +251,14 @@
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
     <state x="531" y="223" width="849" height="568" key="find.popup/0.0.1912.1015@0.0.1912.1015" timestamp="1590697307225" />
-    <state x="619" y="222" width="672" height="678" key="search.everywhere.popup" timestamp="1590706690287">
+    <state x="654" y="128" width="595" height="754" key="refactoring.ChangeSignatureDialog" timestamp="1590760407300">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state x="619" y="222" width="672" height="678" key="search.everywhere.popup/0.0.1912.1015@0.0.1912.1015" timestamp="1590706690287" />
+    <state x="654" y="128" width="595" height="754" key="refactoring.ChangeSignatureDialog/0.0.1912.1015@0.0.1912.1015" timestamp="1590760407300" />
+    <state x="619" y="222" width="672" height="678" key="search.everywhere.popup" timestamp="1590760220894">
+      <screen x="0" y="0" width="1912" height="1015" />
+    </state>
+    <state x="619" y="222" width="672" height="678" key="search.everywhere.popup/0.0.1912.1015@0.0.1912.1015" timestamp="1590760220894" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -266,7 +283,37 @@
           <line>202</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/CompareTemplate.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/CompareTemplate.java</url>
+          <line>244</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/CompareTemplate.java</url>
+          <line>251</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/CompareTemplate.java</url>
+          <line>153</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/CompareTemplate.java</url>
+          <line>133</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="selectConfig()" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

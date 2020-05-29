@@ -1,6 +1,7 @@
 package io.github.vincemann.ezcompare.template;
 
 import com.github.hervian.reflection.Types;
+import com.google.common.collect.Sets;
 import io.github.vincemann.ezcompare.util.MethodNameUtil;
 import io.github.vincemann.ezcompare.util.ReflectionUtils;
 import lombok.*;
@@ -14,25 +15,27 @@ import java.util.logging.Logger;
 
 @Getter
 @Setter
-public class CompareTemplate
-
-        implements
+public class CompareTemplate implements
         ActorConfigurer, AdditionalActorConfigurer,
         SelectiveOptionsConfigurer, FullCompareOptionsConfigurer, PartialCompareOptionsConfigurer,
         PropertyBridge,
         SelectivePropertiesConfigurer, FullComparePropertyConfigurer, PartialPropertyConfigurer, PartialAdditionalPropertyConfigurer,
         OperationConfigurer,
-        ResultProvider {
+        ResultProvider
+{
     private final static Logger log = Logger.getLogger(CompareTemplate.class.getName());
 
     public static PartialCompareConfig GLOBAL_PARTIAL_COMPARE_CONFIG;
     public static FullCompareConfig GLOBAL_FULL_COMPARE_CONFIG;
+
+
     private FullCompareConfig fullCompareConfig;
     private PartialCompareConfig partialCompareConfig;
+
     private Object rootActor;
     private List<Object> actors = new ArrayList<>();
     private Set<String> properties = new HashSet<>();
-    private Set<String> explicitlyIncluded = new HashSet<>();
+
     private RapidEqualsBuilder.MinimalDiff minimalDiff;
     private Boolean fullCompare = null;
 
@@ -44,11 +47,11 @@ public class CompareTemplate
     private void initConfig(){
         this.fullCompareConfig =
                 GLOBAL_FULL_COMPARE_CONFIG == null
-                        ? FullCompareConfig.createDefault()
+                        ? FullCompareConfig.createDefault().build()
                         : GLOBAL_FULL_COMPARE_CONFIG;
         this.partialCompareConfig =
                 GLOBAL_PARTIAL_COMPARE_CONFIG == null
-                        ? PartialCompareConfig.createDefault()
+                        ? PartialCompareConfig.createDefault().build()
                         : GLOBAL_PARTIAL_COMPARE_CONFIG;
     }
 
@@ -109,25 +112,26 @@ public class CompareTemplate
     public PartialAdditionalPropertyConfigurer include(String propertyName) {
         fullCompare = false;
         properties.add(propertyName);
-        explicitlyIncluded.add(propertyName);
         return this;
     }
 
 
     @Override
-    public FullCompareOptionsConfigurer configure(FullCompareConfigConfigurer configurer) {
+    public FullCompareOptionsConfigurer configureFullCompare(OptionsConfigurer<FullCompareConfig> configurer) {
         configurer.configure(fullCompareConfig);
         return this;
     }
 
     @Override
-    public PartialCompareOptionsConfigurer configure(PartialCompareConfigConfigurer configurer) {
+    public PartialCompareOptionsConfigurer configurePartialCompare(OptionsConfigurer<PartialCompareConfig> configurer) {
         configurer.configure(partialCompareConfig);
         return this;
     }
 
+
     private boolean performEqualCheck() {
-        RapidReflectionEquals equalMatcher = new RapidReflectionEquals(rootActor, selectConfig().convert());
+        RapidReflectionEquals equalMatcher = new RapidReflectionEquals(rootActor,
+                selectConfig().convert(rootActor));
         boolean finalEqual = true;
         for (Object actor : actors) {
             boolean equal = equalMatcher.matches(actor);
@@ -195,43 +199,35 @@ public class CompareTemplate
     @Getter
     @Setter
     public static class FullCompareConfig extends AbstractCompareConfig {
-        private boolean ignoreNull;
-        private boolean ignoreNotFound;
-        private boolean useNullForNotFound;
+        //default config
+        private Boolean ignoreNull = Boolean.FALSE;
+        private Boolean ignoreNotFound = Boolean.FALSE;
+        private Boolean useNullForNotFound = Boolean.FALSE;
         private Set<String> ignoredProperties = new HashSet<>();
 
-        FullCompareConfig() {
-            super();
-        }
 
-        @Builder
-        public FullCompareConfig(Class<?> reflectUpToClass, boolean ignoreNull, boolean ignoreNotFound, boolean useNullForNotFound, Set<String> ignoredProperties) {
+        @Builder(builderMethodName = "createDefault")
+        public FullCompareConfig(Class<?> reflectUpToClass, Boolean ignoreNull, Boolean ignoreNotFound, Boolean useNullForNotFound, Set<String> ignoredProperties) {
             super(reflectUpToClass);
-            this.ignoreNull = ignoreNull;
-            this.ignoreNotFound = ignoreNotFound;
-            this.useNullForNotFound = useNullForNotFound;
-            this.ignoredProperties = ignoredProperties;
+            if (ignoreNull!=null)
+                this.ignoreNull = ignoreNull;
+            if (ignoreNotFound!=null)
+                this.ignoreNotFound = ignoreNotFound;
+            if (useNullForNotFound!=null)
+                this.useNullForNotFound = useNullForNotFound;
+            if (ignoredProperties!=null)
+                this.ignoredProperties = ignoredProperties;
         }
 
-        public static FullCompareConfig createDefault() {
-            return new FullCompareConfig();
-        }
 
-        //i like it explicitly for default/auto config
-        public void setDefaultValues() {
-            ignoreNull = false;
-            ignoreNotFound = false;
-            useNullForNotFound = false;
-            ignoredProperties = new HashSet<>();
-        }
 
         @Override
-        protected RapidEqualsBuilder.CompareConfig convert() {
-            RapidEqualsBuilder.CompareConfig result = super.convert();
+        protected RapidEqualsBuilder.CompareConfig convert(Object rootActor) {
+            RapidEqualsBuilder.CompareConfig result = super.convert(rootActor);
             result.setIgnoredProperties(getIgnoredProperties());
-            result.setIgnoreNotFound(isIgnoreNotFound());
-            result.setUseNullForNotFound(isUseNullForNotFound());
-            result.setIgnoreNull(isIgnoreNull());
+            result.setIgnoreNotFound(ignoreNotFound);
+            result.setUseNullForNotFound(useNullForNotFound);
+            result.setIgnoreNull(ignoreNull);
             return result;
         }
 
@@ -240,23 +236,24 @@ public class CompareTemplate
     @Getter
     @Setter
     public static class PartialCompareConfig extends AbstractCompareConfig {
+        //default
+        private Set<String> includedProperties = new HashSet<>();
 
-        PartialCompareConfig() {
-            super();
-        }
 
-        @Builder
-        public PartialCompareConfig(Class<?> reflectUpToClass) {
+        @Builder(builderMethodName = "createDefault")
+        public PartialCompareConfig(Class<?> reflectUpToClass,Set<String> includedProperties) {
             super(reflectUpToClass);
-        }
-
-        public static PartialCompareConfig createDefault() {
-            return new PartialCompareConfig();
+            if (includedProperties!=null)
+                this.includedProperties = includedProperties;
         }
 
         @Override
-        void setDefaultValues() {
-            setReflectUpToClass(null);
+        protected RapidEqualsBuilder.CompareConfig convert(Object rootActor) {
+            RapidEqualsBuilder.CompareConfig result = super.convert(rootActor);
+            Set<String> ignored = ReflectionUtils.getProperties(rootActor.getClass());
+            ignored.removeAll(Sets.newHashSet(includedProperties));
+            result.setIgnoredProperties(ignored);
+            return result;
         }
 
 
@@ -265,21 +262,15 @@ public class CompareTemplate
     @Getter
     @Setter
     static abstract class AbstractCompareConfig {
-        private Class<?> reflectUpToClass;
+        //default
+        private Class<?> reflectUpToClass = null;
 
         public AbstractCompareConfig(Class<?> reflectUpToClass) {
-            this();
             this.reflectUpToClass = reflectUpToClass;
         }
 
-        public AbstractCompareConfig() {
-            setDefaultValues();
-        }
 
-        abstract void setDefaultValues();
-
-
-        protected RapidEqualsBuilder.CompareConfig convert() {
+        protected RapidEqualsBuilder.CompareConfig convert(Object rootActor) {
             RapidEqualsBuilder.CompareConfig result = RapidEqualsBuilder.CompareConfig.createDefault();
             result.setReflectUpToClass(getReflectUpToClass());
             return result;

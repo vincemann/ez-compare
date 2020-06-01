@@ -27,40 +27,19 @@ public class RapidEqualsBuilder {
      * If the fields tested are equals.
      * The default value is <code>true</code>.
      */
-    private MinimalDiff minimalDiff = new MinimalDiff();
+    private Diff diff = new Diff();
 
 
 
 
-    //todo add docs
-    @Getter
-    @NoArgsConstructor
     public static class CompareConfig {
-        private boolean ignoreNull;
-        private boolean ignoreNotFound;
-        private boolean useNullForNotFound;
-        private Set<String> ignoredProperties;
-        private Class<?> reflectUpToClass;
-
-        @Builder(toBuilder = true,access = AccessLevel.PROTECTED)
-        protected CompareConfig(boolean ignoreNull, boolean ignoreNotFound, boolean useNullForNotFound, Set<String> ignoredProperties, Class<?> reflectUpToClass) {
-            this.ignoreNull = ignoreNull;
-            this.ignoreNotFound = ignoreNotFound;
-            this.useNullForNotFound = useNullForNotFound;
-            this.ignoredProperties = ignoredProperties;
-            this.reflectUpToClass=reflectUpToClass;
-        }
-
-        protected static CompareConfig createDefault(){
-            //strict
-            CompareConfig c = new CompareConfig();
-            c.ignoreNull=false;
-            c.ignoreNotFound=false;
-            c.useNullForNotFound=false;
-            c.ignoredProperties =new HashSet<>();
-            c.reflectUpToClass=null;
-            return c;
-        }
+        // default config
+        protected boolean ignoreNull = false;
+        protected boolean ignoreNotFound = false;
+        protected boolean useNullForNotFound = false;
+        protected Set<String> ignoredProperties = new HashSet<>();
+        protected Class<?> reflectUpToClass = null;
+        protected boolean fullDiff = true;
 
 
         protected void setIgnoreNull(boolean ignoreNull) {
@@ -79,9 +58,14 @@ public class RapidEqualsBuilder {
             this.ignoredProperties = ignoredProperties;
         }
 
+        protected void setFullDiff(boolean fullDiff) {
+            this.fullDiff = fullDiff;
+        }
+
         protected void setReflectUpToClass(Class<?> reflectUpToClass) {
             this.reflectUpToClass = reflectUpToClass;
         }
+
     }
     /**
      * <p>Constructor for RapidEqualsBuilder.</p>
@@ -117,7 +101,7 @@ public class RapidEqualsBuilder {
      * @return <code>true</code> if the two Objects have tested equals.
      */
 
-    public static MinimalDiff reflectionEquals(Object root, Object compare) {
+    public static Diff reflectionEquals(Object root, Object compare) {
         return reflectionEquals(root, compare, CompareConfig.createDefault());
     }
 
@@ -144,10 +128,10 @@ public class RapidEqualsBuilder {
      * @return <code>true</code> if the two Objects have tested equals.
      * @since 2.1.0
      */
-    public static MinimalDiff reflectionEquals(Object root, Object compare, CompareConfig config) {
+    public static Diff reflectionEquals(Object root, Object compare, CompareConfig config) {
 
         if (root == compare) {
-            return new MinimalDiff();
+            return new Diff();
         }
         if (root == null || compare == null) {
             throw new IllegalArgumentException("Comparing Objects must not be null");
@@ -179,7 +163,7 @@ public class RapidEqualsBuilder {
                     "             If a subclass has ivars that we are trying to test them, we get an\n" +
                     "             exception and we know that the objects are not equal.");
 
-            return MinimalDiff.different();
+            return Diff.different();
         }
         return equalsBuilder.getDiff();
     }
@@ -725,8 +709,8 @@ public class RapidEqualsBuilder {
         return this;
     }
 
-    public MinimalDiff getDiff() {
-        return this.minimalDiff;
+    public Diff getDiff() {
+        return this.diff;
     }
 
     /**
@@ -736,7 +720,7 @@ public class RapidEqualsBuilder {
      * @return boolean
      */
     public boolean isEquals() {
-        return this.minimalDiff.isEmpty();
+        return this.diff.isEmpty();
     }
 
     /**
@@ -745,7 +729,7 @@ public class RapidEqualsBuilder {
      * @since 2.1
      */
     protected void setDiff(String property, Object rootValue, Object compareValue) {
-        this.minimalDiff = MinimalDiff.builder()
+        this.diff = Diff.builder()
                 .property(property)
                 .rootValue(rootValue)
                 .compareValue(compareValue)
@@ -759,14 +743,15 @@ public class RapidEqualsBuilder {
     @Setter
     @NoArgsConstructor
     @ToString
-    public static class MinimalDiff {
+    public static class Diff {
         private String property;
         private Object rootValue;
         private Object compareValue;
         private boolean different = false;
+        private boolean minimal = true;
 
-        public static MinimalDiff different() {
-            MinimalDiff diff = new MinimalDiff();
+        public static Diff different() {
+            Diff diff = new Diff();
             diff.setDifferent(true);
             return diff;
         }

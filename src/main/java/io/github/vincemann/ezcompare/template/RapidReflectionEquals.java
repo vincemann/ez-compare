@@ -17,7 +17,7 @@ public class RapidReflectionEquals implements ArgumentMatcher<Object>, Serializa
 
     private final Object wanted;
     @Getter
-    private RapidEqualsBuilder.MinimalDiff minimalDiff;
+    private RapidEqualsBuilder.Diff diff;
     @Setter
     private RapidEqualsBuilder.CompareConfig config;
 
@@ -50,12 +50,12 @@ public class RapidReflectionEquals implements ArgumentMatcher<Object>, Serializa
 
 
     public boolean matches(Object actual) {
-        minimalDiff = RapidEqualsBuilder.reflectionEquals(wanted, actual, config);
-        if (minimalDiff.isDifferent()) {
+        diff = RapidEqualsBuilder.reflectionEquals(wanted, actual, config);
+        if (diff.isDifferent()) {
             log.log(Level.INFO, "Wanted: " + wanted + "and actual: " + actual + " differ:");
-            log.log(Level.INFO, minimalDiff.toString());
+            log.log(Level.INFO, diff.toString());
         }
-        return minimalDiff.isEmpty();
+        return diff.isEmpty();
     }
 
     public String toString() {

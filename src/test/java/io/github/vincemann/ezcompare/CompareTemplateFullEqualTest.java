@@ -52,7 +52,7 @@ class CompareTemplateFullEqualTest {
         Parent equalParent = new Parent(parent);
         equalParent.setName(parent.getName() + "MOD");
         //when
-        RapidEqualsBuilder.MinimalDiff diff = fullEqualCompareWithDiff(parent, equalParent);
+        RapidEqualsBuilder.Diff diff = fullEqualCompareWithDiff(parent, equalParent);
         //then
         Assertions.assertEquals(
                 MethodNameUtil.propertyNameOf(parent::getName),
@@ -93,7 +93,7 @@ class CompareTemplateFullEqualTest {
         parent.setName("not meier");
         parent.setId(42L);
 
-        RapidEqualsBuilder.MinimalDiff diff = compare(child).with(parent)
+        RapidEqualsBuilder.Diff diff = compare(child).with(parent)
                 .properties()
                 .all()
                 .ignore(child::getName)
@@ -117,7 +117,7 @@ class CompareTemplateFullEqualTest {
         parent.setName("not meier");
         parent.setId(42L);
 
-        RapidEqualsBuilder.MinimalDiff diff = compare(child).with(parent)
+        RapidEqualsBuilder.Diff diff = compare(child).with(parent)
                 .ignoreNull(true)
                 .properties()
                 .all()
@@ -143,7 +143,7 @@ class CompareTemplateFullEqualTest {
         parent.setName("same");
         parent.setId(42L);
 
-        RapidEqualsBuilder.MinimalDiff diff = compare(child).with(parent)
+        RapidEqualsBuilder.Diff diff = compare(child).with(parent)
                 .properties()
                 .all()
 //                .ignore(child::getName)
@@ -237,7 +237,7 @@ class CompareTemplateFullEqualTest {
                 .isEqual();
     }
 
-    public RapidEqualsBuilder.MinimalDiff fullEqualCompareWithDiff(Object root, Object compare) {
+    public RapidEqualsBuilder.Diff fullEqualCompareWithDiff(Object root, Object compare) {
         return compare(root)
                 .with(compare)
                 .properties()

@@ -1,8 +1,8 @@
 # ez-compare
-Simple refelctionbased fluent-api-style comparisson tool for comparing two objects: "Root" & "Compare".  
-Highly Configurable, yet very simple to use.  
-Human readable Fluent API Style.  
-Ships preconfigured in strict mode.  
+Simple refelction-based fluent-api-style Comparisson-Tool for comparing two Objects: "Root" & "Compare".  
+Highly configurable, yet very simple to use.  
+Human readable fluent-api-style.  
+Ships preconfigured in strict Mode.  
   
 ## core features  
 * Can Compare Objects of different Types  

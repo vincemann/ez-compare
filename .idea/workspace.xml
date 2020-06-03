@@ -2,16 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e58ad0d4-e057-425d-93f7-a022bad3366a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/vince.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/vince.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/util/BeanUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/Comparison.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/Comparison.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/FullComparePropertyConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/FullComparePropertyConfigurer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/PartialPropertyConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/PartialPropertyConfigurer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/RapidArgumentMatchers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/RapidArgumentMatchers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/ResultProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/ResultProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/util/MethodNameUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/util/MethodNameUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare/ExampleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare/ExampleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/util/ReflectionUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/util/ReflectionUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare/CompareTemplateFullCompareTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare/CompareTemplateFullCompareTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare/CompareTemplatePartialCompareTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare/CompareTemplatePartialCompareTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare/ExampleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare/ShowCaseTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/Comparison$CompareTemplateConfig$CompareTemplateConfigBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/Comparison$CompareTemplateConfig$CompareTemplateConfigBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/Comparison$FullCompareConfig$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/Comparison$FullCompareConfig$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/Comparison$FullCompareConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/Comparison$FullCompareConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/Comparison$PartialCompareConfig$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/Comparison$PartialCompareConfig$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/Comparison$PartialCompareConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/Comparison$PartialCompareConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/Comparison.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/Comparison.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/FullComparePropertyConfigurer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/FullComparePropertyConfigurer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/PartialPropertyConfigurer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/PartialPropertyConfigurer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/RapidArgumentMatchers.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/RapidArgumentMatchers.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/ResultProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/ResultProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/util/MethodNameUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/util/MethodNameUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/util/ReflectionUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/util/ReflectionUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/io/github/vincemann/ezcompare/CompareTemplateFullCompareTest$Child.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/io/github/vincemann/ezcompare/CompareTemplateFullCompareTest$Parent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/io/github/vincemann/ezcompare/CompareTemplateFullCompareTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/io/github/vincemann/ezcompare/CompareTemplatePartialCompareTest$Child.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/io/github/vincemann/ezcompare/CompareTemplatePartialCompareTest$NoEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/io/github/vincemann/ezcompare/CompareTemplatePartialCompareTest$NoEntityTwo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/io/github/vincemann/ezcompare/CompareTemplatePartialCompareTest$Parent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/io/github/vincemann/ezcompare/CompareTemplatePartialCompareTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,18 +91,17 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.io.github.vincemann.ezcompare in ez-compare">
-    <configuration name="CompareTemplateFullCompareTest.allSame_butRootHasFieldThatCompareDoesNotHave_withoutValue_useNullForNotFoundEnabled_shouldBeEqual" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CompareTemplateFullCompareTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ez-compare" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="io.github.vincemann.ezcompare.domain.*" />
+          <option name="PATTERN" value="io.github.vincemann.ezcompare.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="io.github.vincemann.ezcompare" />
       <option name="MAIN_CLASS_NAME" value="io.github.vincemann.ezcompare.CompareTemplateFullCompareTest" />
-      <option name="METHOD_NAME" value="allSame_butRootHasFieldThatCompareDoesNotHave_withoutValue_useNullForNotFoundEnabled_shouldBeEqual" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -100,22 +117,6 @@
       <option name="PACKAGE_NAME" value="io.github.vincemann.ezcompare" />
       <option name="MAIN_CLASS_NAME" value="io.github.vincemann.ezcompare.CompareTemplatePartialCompareTest" />
       <option name="METHOD_NAME" value="entity_selectedPropertiesNotEqual_diffType_shouldBeConsideredNotEqual" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CompareTemplatePartialCompareTest.onlyCheckedProperty_isNullForBoth_shouldBeEqual" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ez-compare" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="io.github.vincemann.ezcompare.domain.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="io.github.vincemann.ezcompare" />
-      <option name="MAIN_CLASS_NAME" value="io.github.vincemann.ezcompare.CompareTemplatePartialCompareTest" />
-      <option name="METHOD_NAME" value="onlyCheckedProperty_isNullForBoth_shouldBeEqual" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -137,6 +138,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ShowCaseTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ez-compare" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.github.vincemann.ezcompare.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="io.github.vincemann.ezcompare" />
+      <option name="MAIN_CLASS_NAME" value="io.github.vincemann.ezcompare.ShowCaseTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="io.github.vincemann.ezcompare in ez-compare" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ez-compare" />
       <extension name="coverage">
@@ -154,10 +170,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.io.github.vincemann.ezcompare in ez-compare" />
+        <item itemvalue="JUnit.CompareTemplateFullCompareTest" />
+        <item itemvalue="JUnit.ShowCaseTests" />
         <item itemvalue="JUnit.CompareTemplatePartialCompareTest.entity_selectedPropertiesNotEqual_diffType_shouldBeConsideredNotEqual" />
         <item itemvalue="JUnit.CompareTemplatePartialCompareTest.onlyCheckedProperty_oneIsNull_shouldBeNotEqual" />
-        <item itemvalue="JUnit.CompareTemplatePartialCompareTest.onlyCheckedProperty_isNullForBoth_shouldBeEqual" />
-        <item itemvalue="JUnit.CompareTemplateFullCompareTest.allSame_butRootHasFieldThatCompareDoesNotHave_withoutValue_useNullForNotFoundEnabled_shouldBeEqual" />
       </list>
     </recent_temporary>
   </component>
@@ -177,7 +193,7 @@
       <workItem from="1590760066927" duration="3131000" />
       <workItem from="1591009954264" duration="3084000" />
       <workItem from="1591178097091" duration="20446000" />
-      <workItem from="1591201989958" duration="1817000" />
+      <workItem from="1591201989958" duration="4986000" />
     </task>
     <servers />
   </component>
@@ -189,10 +205,10 @@
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
     <state x="547" y="166" width="802" height="672" key="#Custom_Plugin_Repositories/0.0.1912.1015@0.0.1912.1015" timestamp="1590677991477" />
-    <state x="764" y="220" width="376" height="570" key="#com.intellij.ide.util.MemberChooser" timestamp="1591199188924">
+    <state x="764" y="220" width="376" height="570" key="#com.intellij.ide.util.MemberChooser" timestamp="1591212172423">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state x="764" y="220" width="376" height="570" key="#com.intellij.ide.util.MemberChooser/0.0.1912.1015@0.0.1912.1015" timestamp="1591199188924" />
+    <state x="764" y="220" width="376" height="570" key="#com.intellij.ide.util.MemberChooser/0.0.1912.1015@0.0.1912.1015" timestamp="1591212172423" />
     <state x="387" y="435" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1590699230437">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
@@ -299,7 +315,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/Comparison.java</url>
-          <line>142</line>
+          <line>166</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

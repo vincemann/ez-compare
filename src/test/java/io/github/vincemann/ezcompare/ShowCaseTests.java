@@ -1,7 +1,5 @@
 package io.github.vincemann.ezcompare;
 
-import com.google.common.collect.Sets;
-import io.github.vincemann.ezcompare.util.MethodNameUtil;
 import lombok.Builder;
 import lombok.Getter;
 import org.junit.jupiter.api.Assertions;
@@ -10,11 +8,11 @@ import org.junit.jupiter.api.Test;
 import static io.github.vincemann.ezcompare.Comparison.compare;
 import static io.github.vincemann.ezcompare.util.MethodNameUtil.propertyNameOf;
 
-public class ExampleTest {
+public class ShowCaseTests {
 
     @Builder
     @Getter
-    class Person{
+    static class Person{
         private String name;
         private String address;
         private Long tel;
@@ -24,7 +22,7 @@ public class ExampleTest {
 
     @Builder
     @Getter
-    class PersonDTO{
+    static class PersonDTO{
         private String name;
         private String address;
         private Long tel;
@@ -143,9 +141,6 @@ public class ExampleTest {
 
     @Test
     public void fullCompareEasy_globalConfig(){
-
-
-
         Person p = Person.builder()
                 .name("always ignored")
                 .creatorIp("always ignored")
@@ -159,28 +154,22 @@ public class ExampleTest {
                 .address("same")
                 .build();
 
-        //i.E. name always diff in database compared to dto + ip irrelevant in dev env
-        //creating Global Dev Compare Config
-        Comparison.FullCompareConfig.modDefault()
+        //i.E. Name is always diff in database compared to dto + ip irrelevant in dev env
+        // -> creating Global Dev Compare Config
+        //this could be initialized once in an abstract test ect. and would survive between tests
+        Comparison.modFullCompareGlobalConfig()
                 .ignoreProperty(p::getCreatorIp)
-                .ignoreProperty("name");
+                .ignoreProperty("name")
+                .ignoreNotFound(true)
+                .ignoreNull(true);
 
 
 
         //only properties that are not null and present in both compare objects are relevant
-        RapidEqualsBuilder.Diff diff = compare(p).with(dto)
-                .ignoreNotFound(true)       //creatorIp will be ignored
-                .ignoreNull(true)           //tel       will be ignored
+        compare(p).with(dto)
                 .properties()
                 .all()
-                //we dont care about name neither
-                .ignore(p::getName)
-                .assertNotEqual()
-                .getDiff();
-
-        //just to showcase it worked the way it is expected
-        Assertions.assertEquals(1,diff.getDiffNodes().size());
-        Assertions.assertEquals(propertyNameOf(p::getAddress),diff.getFirstNode().getProperty());
+                .assertEqual();
     }
 
     @Test

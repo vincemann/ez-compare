@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,12 +20,7 @@ class CompareTemplateFullCompareTest {
 
     @BeforeEach
     void setUp() {
-        Assertions.assertNull(Comparison.GLOBAL_FULL_COMPARE_CONFIG);
-    }
-
-    @AfterEach
-    void tearDown() {
-        Comparison.GLOBAL_FULL_COMPARE_CONFIG=null;
+        Comparison.globalReset();
     }
 
     @Test

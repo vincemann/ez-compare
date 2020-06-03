@@ -1,7 +1,6 @@
 package io.github.vincemann.ezcompare.util;
 
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.reflect.Field;
@@ -18,7 +17,7 @@ public class ReflectionUtils {
 
 
 
-    public static Set<String> getProperties(Class c) {
+    public static Set<String> getProperties(Class<?> c) {
         return getFields(c).stream()
                 .map(Field::getName)
                 .collect(Collectors.toSet());
@@ -30,7 +29,7 @@ public class ReflectionUtils {
      * Gets all fields, also from superclasses.
      * Ignores Static and "this" fields.
      */
-    public static Set<Field> getFields(Class clazz) {
+    public static Set<Field> getFields(Class<?> clazz) {
         return Arrays.stream(FieldUtils.getAllFields(clazz))
                 .filter(f -> !Modifier.isStatic(f.getModifiers()) && !f.getName().startsWith("this$"))
                 .collect(Collectors.toSet());

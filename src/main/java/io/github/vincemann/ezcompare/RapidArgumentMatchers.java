@@ -18,7 +18,7 @@ public class RapidArgumentMatchers {
     public static <T> T fullRefEq(T root, String... ignoredProperties) {
         return fullRefEq(
                 root,
-                Comparison.FullCompareConfig.modGlobal()
+                Comparison.FullCompareConfig.buildBasedOnGlobal()
                         .ignoredProperties(Sets.newHashSet(ignoredProperties))
                         .build()
         );
@@ -44,7 +44,7 @@ public class RapidArgumentMatchers {
     public static <T> T partialRefEq(T root, String... includedProperties) {
         return partialRefEq(
                 root,
-                Comparison.PartialCompareConfig.modGlobal()
+                Comparison.PartialCompareConfig.buildBasedOnGlobal()
                         .includedProperties(Sets.newHashSet(includedProperties))
                         .build()
         );

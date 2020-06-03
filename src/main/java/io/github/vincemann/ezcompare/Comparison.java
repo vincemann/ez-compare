@@ -2,6 +2,7 @@ package io.github.vincemann.ezcompare;
 
 import com.github.hervian.reflection.Types;
 import com.google.common.collect.Sets;
+import io.github.vincemann.ezcompare.util.BeanUtils;
 import io.github.vincemann.ezcompare.util.ReflectionUtils;
 import lombok.*;
 import org.junit.jupiter.api.Assertions;
@@ -31,12 +32,12 @@ import static io.github.vincemann.ezcompare.util.MethodNameUtil.propertyNamesOf;
  * <p>
  * Supports local and global Configuration for each mode:
  * FullCompare:     local:  {@link FullCompareOptionsConfigurer#configureFullCompare(FullCompareConfigConfigurer)}
- * global: {@link this#GLOBAL_FULL_COMPARE_CONFIG}
+ * global: {@link this#FULL_COMPARE_GLOBAL_CONFIG}
  *
  * @see FullCompareConfig
  * <p>
  * PartialCompare:  local:  {@link PartialCompareOptionsConfigurer#configurePartial(PartialCompareConfigConfigurer)}
- * global: {@link this#GLOBAL_PARTIAL_COMPARE_CONFIG}
+ * global: {@link this#PARTIAL_COMPARE_GLOBAL_CONFIG}
  * @see PartialCompareConfig
  * <p>
  * <p>
@@ -59,10 +60,11 @@ public class Comparison implements
     /**
      * Comparison is initialized with Global Config, if present.
      * Otherwise default Configs get created.
+     *
+     *
      */
-
-    public static PartialCompareConfig GLOBAL_PARTIAL_COMPARE_CONFIG;
-    public static FullCompareConfig GLOBAL_FULL_COMPARE_CONFIG;
+    private static PartialCompareConfig PARTIAL_COMPARE_GLOBAL_CONFIG;
+    private static FullCompareConfig FULL_COMPARE_GLOBAL_CONFIG;
 
 
     /**
@@ -79,26 +81,56 @@ public class Comparison implements
 
     protected Comparison(Object root) {
         this.root = root;
-        //todo clone global config when init -> i dont work on the reference of the global config
-        //todo global config must only be editable via FullCompareConfig.modGlobal()....
-        //todo maybe move global Config static vars into config classes
-        //todo maybe create abstract getGlobal() method in AbstractConfig class
-        this.fullCompareConfig = getGlobalFullCompareConfig();
-        this.partialCompareConfig = getGlobalPartialCompareConfig();
+        initConfig();
     }
 
-    private static FullCompareConfig getGlobalFullCompareConfig() {
-        if (GLOBAL_FULL_COMPARE_CONFIG == null) {
-            GLOBAL_FULL_COMPARE_CONFIG = new FullCompareConfig();
-        }
-        return GLOBAL_FULL_COMPARE_CONFIG;
+    protected void initConfig(){
+        //clone Global Config for local use within this instance
+        this.fullCompareConfig =    FullCompareConfig.buildBasedOnGlobal().build();
+        this.partialCompareConfig = PartialCompareConfig.buildDefault().build();
     }
 
-    private static PartialCompareConfig getGlobalPartialCompareConfig() {
-        if (GLOBAL_PARTIAL_COMPARE_CONFIG == null) {
-            GLOBAL_PARTIAL_COMPARE_CONFIG = new PartialCompareConfig();
+    /**
+     * Use {@link this#modFullCompareGlobalConfig()} for modification.
+     */
+    public static FullCompareConfig getFullCompareGlobalConfig() {
+        if (FULL_COMPARE_GLOBAL_CONFIG == null) {
+            FULL_COMPARE_GLOBAL_CONFIG = new FullCompareConfig();
         }
-        return GLOBAL_PARTIAL_COMPARE_CONFIG;
+        return FULL_COMPARE_GLOBAL_CONFIG;
+    }
+
+    /**
+     * Use {@link this#modPartialCompareGlobalConfig()} for modification.
+     */
+    public static PartialCompareConfig getPartialCompareGlobalConfig() {
+        if (PARTIAL_COMPARE_GLOBAL_CONFIG == null) {
+            PARTIAL_COMPARE_GLOBAL_CONFIG = new PartialCompareConfig();
+        }
+        return PARTIAL_COMPARE_GLOBAL_CONFIG;
+    }
+
+    public static PartialCompareConfig.Builder modPartialCompareGlobalConfig(){
+        return new PartialCompareConfig.Builder(getPartialCompareGlobalConfig());
+    }
+    public static FullCompareConfig.Builder modFullCompareGlobalConfig(){
+        return new FullCompareConfig.Builder(getFullCompareGlobalConfig());
+    }
+
+    public static void setPartialCompareGlobalConfig(PartialCompareConfig partialCompareGlobalConfig) {
+        PARTIAL_COMPARE_GLOBAL_CONFIG = partialCompareGlobalConfig;
+    }
+
+    public static void setFullCompareGlobalConfig(FullCompareConfig fullCompareGlobalConfig) {
+        FULL_COMPARE_GLOBAL_CONFIG = fullCompareGlobalConfig;
+    }
+
+    /**
+     * Resets global configuration to default config.
+     */
+    public static void globalReset(){
+        setFullCompareGlobalConfig(FullCompareConfig.buildDefault().build());
+        setPartialCompareGlobalConfig(PartialCompareConfig.buildDefault().build());
     }
 
     /**
@@ -240,28 +272,31 @@ public class Comparison implements
     public interface CompareTemplateConfig {
 
         @Getter
-        public static abstract class CompareTemplateConfigBuilder<T extends CompareTemplateConfigBuilder, C extends RapidEqualsBuilder.CompareConfig> /*implements CompareTemplateConfigModder<CompareTemplateConfigBuilder>*/ {
+        public static abstract class CompareTemplateConfigBuilder<B extends CompareTemplateConfigBuilder, C extends RapidEqualsBuilder.CompareConfig> /*implements CompareTemplateConfigModder<CompareTemplateConfigBuilder>*/ {
             private C config;
 
             public CompareTemplateConfigBuilder(C config) {
                 this.config = config;
             }
 
-            //            @Override
-            public T reflectUpToClass(Class<?> value) {
+            public B reflectUpToClass(Class<?> value) {
                 config.reflectUpToClass = value;
-                return (T) this;
+                return (B) this;
             }
 
-            //            @Override
-            public T fullDiff(boolean value) {
+            public B fullDiff(boolean value) {
                 config.minimalDiff = value;
-                return (T) this;
+                return (B) this;
             }
+
+            //todo modConfg should return Accessor not Builder
+            //todo impl accessor this is not the task of a Builder
+
 
             public C build() {
                 return config;
             }
+
         }
     }
 
@@ -278,21 +313,22 @@ public class Comparison implements
 
 
         /**
-         * Create Default Config wrapped in Builder, ready for modification.
-         * Global Config is not included.
+         * Creates Config based on default Config.
          *
-         * @see this#modGlobal()
+         * @see this#buildBasedOnGlobal()
          */
-        public static Builder modDefault() {
+        public static Builder buildDefault() {
             return new Builder();
         }
 
         /**
-         * Get Global Config wrapped in Builder, ready for modification.
+         * Creates Config based on GlobalConfig.
          */
-        public static Builder modGlobal() {
-            return new Builder(getGlobalFullCompareConfig());
+        public static Builder buildBasedOnGlobal() {
+            return new Builder(BeanUtils.clone(getFullCompareGlobalConfig()));
         }
+
+
 
 
         public boolean isIgnoreNull() {
@@ -380,6 +416,8 @@ public class Comparison implements
                 return this;
             }
 
+
+
         }
 
 
@@ -401,20 +439,19 @@ public class Comparison implements
 
 
         /**
-         * Create Default Config wrapped in Builder, ready for modification.
-         * Global Config is not included.
+         * Creates Config based on default Config.
          *
-         * @see this#modGlobal()
+         * @see this#buildBasedOnGlobal()
          */
-        public static Builder modDefault() {
-            return new Builder();
+        public static PartialCompareConfig.Builder buildDefault() {
+            return new PartialCompareConfig.Builder();
         }
 
         /**
-         * Get Global Config wrapped in Builder, ready for modification.
+         * Creates Config based on GlobalConfig.
          */
-        public static Builder modGlobal() {
-            return new Builder(getGlobalPartialCompareConfig());
+        public static PartialCompareConfig.Builder buildBasedOnGlobal() {
+            return new PartialCompareConfig.Builder(BeanUtils.clone(getPartialCompareGlobalConfig()));
         }
 
         public Set<String> getIncludedProperties() {

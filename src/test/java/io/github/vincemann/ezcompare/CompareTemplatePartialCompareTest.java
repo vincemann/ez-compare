@@ -70,14 +70,9 @@ class CompareTemplatePartialCompareTest {
 
     @BeforeEach
     void setUp() {
-        //no global config that could interfere with test
-        Assertions.assertNull(Comparison.GLOBAL_PARTIAL_COMPARE_CONFIG);
+        Comparison.globalReset();
     }
 
-    @AfterEach
-    void tearDown() {
-        Comparison.GLOBAL_PARTIAL_COMPARE_CONFIG=null;
-    }
 
     @Test
     public void onlyCheckedPropertyEqual_onlyCheckThis_shouldBeEqual(){

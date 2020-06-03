@@ -2,9 +2,8 @@
 Simple refelction-based **Comparisson-Tool** for comparing two Objects: "Root" & "Compare".  
 Highly **configurable**, yet very **simple** to use.  
 Human readable **fluent-api-style**.  
-Ships preconfigured in strict Mode.  
 Does **not** perform **deep** compare (except for arrays),  
-but instead iterates over all **relevant** instance variables of both objects and compares them via equal.  
+but instead iterates over the **selected** instance variables of both objects and compares them via equal-method.  
 -> reflection depth is 1.  
   
 ## features  

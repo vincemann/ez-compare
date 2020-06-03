@@ -12,9 +12,39 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
+
+/**
+ * Fluent-API-like Wrapper for {@link RapidReflectionEquals}.
+ * Represents a Comparison of two objects. Dont reuse!
+ *
+ * Supports two Comparison Modes:
+ *
+ * FullCompare (applied by using {@link SelectivePropertiesConfigurer#all()})
+ * Uses all fields from {@link this#root} for comparison.
+ * Fields may be ignored with {@link FullComparePropertyConfigurer#ignore(Types.Supplier)}.
+ *
+ * PartialCompare (applied by using {@link SelectivePropertiesConfigurer#include(Types.Supplier)})
+ * Uses only explicitly excluded fields from root.
+ *
+ *
+ * Supports local and global Configuration for each mode:
+ * FullCompare:     local:  {@link FullCompareOptionsConfigurer#configureFullCompare(FullCompareConfigConfigurer)}
+ *                  global: {@link this#GLOBAL_FULL_COMPARE_CONFIG}
+ *                  @see FullCompareConfig
+ *
+ * PartialCompare:  local:  {@link PartialCompareOptionsConfigurer#configurePartial(PartialCompareConfigConfigurer)}
+ *                  global: {@link this#GLOBAL_PARTIAL_COMPARE_CONFIG}
+ *                  @see PartialCompareConfig
+ *
+ *
+ * Supports two Result Modes:
+ * minimalDiff: stops searching for differences when first is found. (can be useful for performence reasons)
+ * fullDiff:    always finds all differences.
+ * @see io.github.vincemann.ezcompare.template.RapidEqualsBuilder.Diff
+ */
 @Getter
 @Setter
-public class CompareTemplate implements
+public class Comparison implements
         ActorConfigurer, ActorBridge,
         SelectiveOptionsConfigurer, FullCompareOptionsConfigurer, PartialCompareOptionsConfigurer,CompareOptionsConfigurer,
         PropertyBridge,
@@ -22,7 +52,7 @@ public class CompareTemplate implements
         OperationConfigurer,
         ResultProvider
 {
-    private final static Logger log = Logger.getLogger(CompareTemplate.class.getName());
+    private final static Logger log = Logger.getLogger(Comparison.class.getName());
 
     public static PartialCompareConfig  GLOBAL_PARTIAL_COMPARE_CONFIG;
     public static FullCompareConfig     GLOBAL_FULL_COMPARE_CONFIG;
@@ -37,7 +67,7 @@ public class CompareTemplate implements
     private RapidEqualsBuilder.Diff diff;
     private Boolean fullCompare = null;
 
-    protected CompareTemplate(Object root) {
+    protected Comparison(Object root) {
         this.root = root;
         this.fullCompareConfig  = getGlobalFullCompareConfig();
         this.partialCompareConfig = getGlobalPartialCompareConfig();
@@ -54,8 +84,13 @@ public class CompareTemplate implements
                 : GLOBAL_PARTIAL_COMPARE_CONFIG;
     }
 
+    /**
+     * Create the Template with this method.
+     * @param rootActor
+     * @return
+     */
     public static ActorConfigurer compare(Object rootActor) {
-        return new CompareTemplate(rootActor);
+        return new Comparison(rootActor);
     }
 
     @Override
@@ -182,6 +217,7 @@ public class CompareTemplate implements
         this.fullCompareConfig.ignoreNotFound = v;
         return this;
     }
+
 
 
     @Getter

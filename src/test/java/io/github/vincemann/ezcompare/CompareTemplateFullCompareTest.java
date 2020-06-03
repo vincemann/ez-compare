@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static io.github.vincemann.ezcompare.template.CompareTemplate.compare;
+import static io.github.vincemann.ezcompare.template.Comparison.compare;
 
 
 class CompareTemplateFullCompareTest {
@@ -22,12 +22,12 @@ class CompareTemplateFullCompareTest {
 
     @BeforeEach
     void setUp() {
-        Assertions.assertNull(CompareTemplate.GLOBAL_FULL_COMPARE_CONFIG);
+        Assertions.assertNull(Comparison.GLOBAL_FULL_COMPARE_CONFIG);
     }
 
     @AfterEach
     void tearDown() {
-        CompareTemplate.GLOBAL_FULL_COMPARE_CONFIG=null;
+        Comparison.GLOBAL_FULL_COMPARE_CONFIG=null;
     }
 
     @Test
@@ -60,7 +60,7 @@ class CompareTemplateFullCompareTest {
         //then
         Assertions.assertEquals(
                 MethodNameUtil.propertyNameOf(parent::getName),
-                diff.getProperty()
+                diff.getFirstNode().getProperty()
         );
     }
 
@@ -159,7 +159,7 @@ class CompareTemplateFullCompareTest {
 
         Assertions.assertEquals(
                 MethodNameUtil.propertyNameOf(child::getName),
-                diff.getProperty()
+                diff.getFirstNode().getProperty()
         );
     }
 
@@ -205,7 +205,10 @@ class CompareTemplateFullCompareTest {
 
         Assertions.assertTrue(resultProvider.getDiff().isDifferent());
         Assertions.assertFalse(resultProvider.isEqual());
-        Assertions.assertEquals(MethodNameUtil.propertyNameOf(child::getAddress),resultProvider.getDiff().getProperty());
+        Assertions.assertEquals(
+                MethodNameUtil.propertyNameOf(child::getAddress),
+                resultProvider.getDiff().getFirstNode().getProperty()
+        );
     }
 
     @Test

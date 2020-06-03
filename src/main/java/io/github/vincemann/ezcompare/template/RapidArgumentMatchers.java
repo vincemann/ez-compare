@@ -11,20 +11,11 @@ import static org.mockito.internal.progress.ThreadSafeMockingProgress.mockingPro
 
 public class RapidArgumentMatchers {
 
-    /**
-     * Same as {@link org.mockito.ArgumentMatchers#refEq(Object, String...)}, but creates and logs minimal Diff, if objects differ.
-     * Only takes fields from root (expected) object class into consideration.
-     * Does not perform deep compare -> only scans fields from root and performs equal on all of those (depth = 1)
-     * Can compare diff Types, if field names match.
-     *
-     * @param root  root Actor of comparison, see {@link CompareTemplate#getRoot()}
-     * @param <T>
-     * @return
-     */
+
     public static <T> T fullRefEq(T root, String... ignoredProperties) {
         return fullRefEq(
                 root,
-                CompareTemplate.FullCompareConfig.modGlobal()
+                Comparison.FullCompareConfig.modGlobal()
                         .ignoredProperties(Sets.newHashSet(ignoredProperties))
                         .build()
         );
@@ -34,7 +25,7 @@ public class RapidArgumentMatchers {
         return fullRefEq(root, getPropertyNamesOf(ignoredGetter));
     }
 
-    public static <T> T fullRefEq(T root, CompareTemplate.FullCompareConfig config) {
+    public static <T> T fullRefEq(T root, Comparison.FullCompareConfig config) {
         reportMatcher(new RapidReflectionEquals(root, config));
         return null;
     }
@@ -50,13 +41,13 @@ public class RapidArgumentMatchers {
     public static <T> T partialRefEq(T root, String... includedProperties) {
         return partialRefEq(
                 root,
-                CompareTemplate.PartialCompareConfig.modGlobal()
+                Comparison.PartialCompareConfig.modGlobal()
                         .includedProperties(Sets.newHashSet(includedProperties))
                         .build()
         );
     }
 
-    public static <T> T partialRefEq(T root, CompareTemplate.PartialCompareConfig config) {
+    public static <T> T partialRefEq(T root, Comparison.PartialCompareConfig config) {
         reportMatcher(new RapidReflectionEquals(root, config));
         return null;
     }

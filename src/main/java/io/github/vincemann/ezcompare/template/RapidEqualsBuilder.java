@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import io.github.vincemann.ezcompare.util.ReflectionUtils;
 import lombok.*;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.junit.jupiter.api.Assertions;
 
 import java.lang.reflect.Field;
 import java.util.HashSet;
@@ -75,10 +76,7 @@ public class RapidEqualsBuilder {
      */
     public RapidEqualsBuilder(CompareConfig config) {
         this.config = config;
-        this.diff = Diff.builder()
-                .different(false)
-                .minimal(config.minimalDiff)
-                .build();
+        this.diff = new Diff(config.minimalDiff);
     }
 
 
@@ -169,11 +167,7 @@ public class RapidEqualsBuilder {
                     "             If a subclass has ivars that we are trying to test them, we get an\n" +
                     "             exception and we know that the objects are not equal.");
 
-            return Diff.builder()
-                    .different(true)
-                    .minimal(config.minimalDiff)
-                    //rest is unknown at this point
-                    .build();
+            return Diff.createEmptyDifferent(config.minimalDiff);
         }
         return equalsBuilder.getDiff();
     }
@@ -746,37 +740,62 @@ public class RapidEqualsBuilder {
         return !isEquals() && minimalDiff();
     }
 
-    /**
-     * Sets the <code>minimalDiff</code> value.
-     *
-     * @since 2.1
-     */
+
     protected void addDiff(String property, Object rootValue, Object compareValue) {
-        this.diff = Diff.builder()
-                .minimal(config.minimalDiff)
+        this.diff.addNode(Diff.DiffNode.builder()
                 .property(property)
                 .rootValue(rootValue)
                 .compareValue(compareValue)
-                .different(true)
-                .build();
+                .build());
     }
 
     @Getter
     @ToString
-    @Builder(access = AccessLevel.PROTECTED)
     public static class Diff {
-        private String property;
-        private Object rootValue;
-        private Object compareValue;
-        private Boolean different = Boolean.FALSE;
-        private Boolean minimal = null;
+        private Set<DiffNode> diffNodes = new HashSet<>();
+        private Boolean minimal;
+        private boolean different = false;
+
+        public Diff(Boolean minimal) {
+            this.minimal = minimal;
+        }
+
+        public static Diff createEmptyDifferent(Boolean minimal){
+            Diff diff = new Diff(minimal);
+            diff.different=true;
+            return diff;
+        }
+
+        public DiffNode getFirstNode(){
+            Assertions.assertFalse(diffNodes.isEmpty());
+            return diffNodes.stream().findFirst().get();
+        }
 
         public boolean isDifferent() {
-            return this.different;
+            return different;
         }
 
         public boolean isEmpty() {
             return !different;
+        }
+
+        void addNode(DiffNode node){
+            different=true;
+            if (minimal && !diffNodes.isEmpty()){
+                throw new RuntimeException("Unexpected adding of more than one DiffNode in minimalDiff mode");
+            }
+            diffNodes.add(node);
+        }
+
+
+
+
+        @Builder
+        @Getter
+        public static class DiffNode{
+            private String property;
+            private Object rootValue;
+            private Object compareValue;
         }
     }
 }

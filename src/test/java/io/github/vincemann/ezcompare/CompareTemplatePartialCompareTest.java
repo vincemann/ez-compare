@@ -2,7 +2,7 @@ package io.github.vincemann.ezcompare;
 
 import com.github.hervian.reflection.Types;
 import io.github.vincemann.ezcompare.domain.IdentifiableEntityImpl;
-import io.github.vincemann.ezcompare.template.CompareTemplate;
+import io.github.vincemann.ezcompare.template.Comparison;
 import lombok.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static io.github.vincemann.ezcompare.template.CompareTemplate.compare;
+import static io.github.vincemann.ezcompare.template.Comparison.compare;
 
 
 class CompareTemplatePartialCompareTest {
@@ -72,23 +72,23 @@ class CompareTemplatePartialCompareTest {
     @BeforeEach
     void setUp() {
         //no global config that could interfere with test
-        Assertions.assertNull(CompareTemplate.GLOBAL_PARTIAL_COMPARE_CONFIG);
+        Assertions.assertNull(Comparison.GLOBAL_PARTIAL_COMPARE_CONFIG);
     }
 
     @AfterEach
     void tearDown() {
-        CompareTemplate.GLOBAL_PARTIAL_COMPARE_CONFIG=null;
+        Comparison.GLOBAL_PARTIAL_COMPARE_CONFIG=null;
     }
 
     @Test
-    public void entity_onlyCheckedPropertyEqual_onlyCheckThis_shouldBeEqual_sameType(){
+    public void onlyCheckedPropertyEqual_onlyCheckThis_shouldBeEqual(){
         Parent parent = new Parent();
         parent.setAge(42);
-        parent.setName("meier");
+        parent.setName("diff");
 
         Parent second = new Parent();
         second.setAge(42);
-        second.setName("junker");
+        second.setName("veryDiff");
 
         boolean equal = compareSingleProperty(parent,second,parent::getAge);
 
@@ -96,14 +96,31 @@ class CompareTemplatePartialCompareTest {
     }
 
     @Test
-    public void entity_selectedPropertiesNotEqual_sameType_shouldBeConsideredNotEqual(){
+    public void onlyCheckedPropertiesEqual_onlyCheckThis_shouldBeEqual(){
         Parent parent = new Parent();
-        parent.setAge(43);
-        parent.setName("meier");
+        parent.setAge(42);
+        parent.setName("same");
 
         Parent second = new Parent();
         second.setAge(42);
-        second.setName("meier");
+        second.setName("same");
+
+        boolean equal = compareSingleProperty(parent,second,parent::getAge);
+
+        Assertions.assertTrue(equal);
+    }
+    
+    
+
+    @Test
+    public void selectedProperties_notEqual_shouldBeConsideredNotEqual(){
+        Parent parent = new Parent();
+        parent.setAge(69);
+        parent.setName("same");
+
+        Parent second = new Parent();
+        second.setAge(42);
+        second.setName("same");
 
         boolean equal = compareSingleProperty(parent,second,parent::getAge);
 
@@ -111,28 +128,28 @@ class CompareTemplatePartialCompareTest {
     }
 
     @Test
-    public void entity_selectedPropertiesEqual_diffType_shouldBeEqual(){
+    public void selectedProperties_Equal_diffType_shouldBeEqual(){
         Parent parent = new Parent();
         parent.setAge(42);
-        parent.setName("meier");
+        parent.setName("same");
 
         Child child = new Child();
-        child.setName("meier");
+        child.setName("same");
 
         boolean equal = compareSingleProperty(parent,child,parent::getName);
         Assertions.assertTrue(equal);
     }
 
     @Test
-    public void entity_selectedPropertiesNotEqual_diffType_shouldBeConsideredNotEqual(){
+    public void selectedProperties_NotEqual_diffType_shouldBeConsideredNotEqual(){
         Parent parent = new Parent();
         //parent.setId(1L);
         parent.setAge(42);
-        parent.setName("meierDiff");
+        parent.setName("diff");
 
         Child child = new Child();
         //child.setId(2L);
-        child.setName("meier");
+        child.setName("veryDiff");
 
         boolean equal = compareSingleProperty(parent,child,parent::getName);
 
@@ -141,15 +158,15 @@ class CompareTemplatePartialCompareTest {
     }
 
     @Test
-    public void entity_selectedPropertyNotEqual_idsEqual_diffType_shouldBeConsideredNotEqual(){
+    public void selectedPropertyNotEqual_idsEqual_diffType_shouldBeConsideredNotEqual(){
         Parent parent = new Parent();
-        parent.setId(1L);
-        parent.setAge(42);
-        parent.setName("meierDiff");
+        parent.setId(42L);
+        parent.setAge(69);
+        parent.setName("diff");
 
         Child child = new Child();
-        child.setId(1L);
-        child.setName("meier");
+        child.setId(42L);
+        child.setName("veryDiff");
 
         boolean equal = compareSingleProperty(parent,child,parent::getName);
 
@@ -160,10 +177,10 @@ class CompareTemplatePartialCompareTest {
     public void selectedPropertiesNotEqual_diffType_shouldBeConsideredNotEqual(){
         NoEntity parent = new NoEntity();
         parent.setAge(42);
-        parent.setName("meierDiff");
+        parent.setName("diff");
 
         NoEntityTwo child = new NoEntityTwo();
-        child.setName("meier");
+        child.setName("veryDiff");
         child.setAge(42);
 
         boolean equal = compareSingleProperty(parent,child,parent::getName);
@@ -175,10 +192,10 @@ class CompareTemplatePartialCompareTest {
     public void selectedPropertiesNotEqual_sameType_shouldBeConsideredNotEqual(){
         NoEntity parent = new NoEntity();
         parent.setAge(42);
-        parent.setName("meierDiff");
+        parent.setName("diff");
 
         NoEntity child = new NoEntity();
-        child.setName("meier");
+        child.setName("veryDiff");
         child.setAge(42);
 
         boolean equal = compareSingleProperty(parent,child,parent::getAge);
@@ -191,10 +208,10 @@ class CompareTemplatePartialCompareTest {
     public void selectedPropertiesEqual_diffType_shouldBeEqual(){
         NoEntity parent = new NoEntity();
         parent.setAge(42);
-        parent.setName("meierDiff");
+        parent.setName("diff");
 
         NoEntityTwo child = new NoEntityTwo();
-        child.setName("meier");
+        child.setName("veryDiff");
         child.setAge(42);
 
         boolean equal = compareSingleProperty(parent,child,parent::getAge);
@@ -208,11 +225,11 @@ class CompareTemplatePartialCompareTest {
     public void onlyCheckedProperty_isNotEqual_shouldBeNotEqual(){
         Parent parent = new Parent();
         parent.setAge(42);
-        parent.setName("meier");
+        parent.setName("diff");
 
         Parent second = new Parent();
         second.setAge(42);
-        second.setName("junker");
+        second.setName("veryDiff");
 
         boolean equal = compareSingleProperty(parent,second,parent::getName);
 

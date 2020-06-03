@@ -3,6 +3,9 @@ Simple refelction-based fluent-api-style Comparisson-Tool for comparing two Obje
 Highly configurable, yet very simple to use.  
 Human readable fluent-api-style.  
 Ships preconfigured in strict Mode.  
+Does **not** perform deep compare (except for arrays),  
+but instead iterates over all relevant instance variables of both objects and compares them via equal.  
+-> reflection depth is 1.  
   
 ## features  
 * Can Compare Objects of different Types  

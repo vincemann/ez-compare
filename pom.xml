@@ -43,7 +43,16 @@
             <scope>compile</scope>
         </dependency>
 
-<!--        &lt;!&ndash; Junit 5&ndash;&gt;-->
+        <!-- clone global config -->
+        <!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
+        </dependency>
+
+
+        <!--        &lt;!&ndash; Junit 5&ndash;&gt;-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>

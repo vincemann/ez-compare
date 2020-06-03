@@ -2,11 +2,9 @@ package io.github.vincemann.ezcompare;
 
 import com.github.hervian.reflection.Types;
 import com.google.common.collect.Sets;
-import io.github.vincemann.ezcompare.util.MethodNameUtil;
 import org.mockito.ArgumentMatcher;
 
-import java.util.Arrays;
-
+import static io.github.vincemann.ezcompare.util.MethodNameUtil.propertyNamesOf;
 import static org.mockito.internal.progress.ThreadSafeMockingProgress.mockingProgress;
 
 /**
@@ -27,7 +25,7 @@ public class RapidArgumentMatchers {
     }
 
     public static <T> T fullRefEq(T root, Types.Supplier<?>... ignoredGetter) {
-        return fullRefEq(root, getPropertyNamesOf(ignoredGetter));
+        return fullRefEq(root, propertyNamesOf(ignoredGetter));
     }
 
     public static <T> T fullRefEq(T root, Comparison.FullCompareConfig config) {
@@ -39,7 +37,7 @@ public class RapidArgumentMatchers {
 
 
     public static <T> T partialRefEq(T root, Types.Supplier<?>... includedGetter) {
-        partialRefEq(root, getPropertyNamesOf(includedGetter));
+        partialRefEq(root, propertyNamesOf(includedGetter));
         return null;
     }
 
@@ -64,10 +62,5 @@ public class RapidArgumentMatchers {
         mockingProgress().getArgumentMatcherStorage().reportMatcher(matcher);
     }
 
-    private static String[] getPropertyNamesOf(Types.Supplier<?>... getters) {
-        return Arrays.stream(getters)
-                .map(MethodNameUtil::propertyNameOf)
-                .distinct()
-                .toArray(String[]::new);
-    }
+
 }

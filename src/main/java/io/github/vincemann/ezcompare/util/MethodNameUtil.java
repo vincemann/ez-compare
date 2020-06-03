@@ -3,6 +3,7 @@ package io.github.vincemann.ezcompare.util;
 import com.github.hervian.reflection.Types;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 public class MethodNameUtil {
 
@@ -24,6 +25,12 @@ public class MethodNameUtil {
         return propertyName;
     }
 
+    public static String[] propertyNamesOf(Types.Supplier<?>... getters) {
+        return Arrays.stream(getters)
+                .map(MethodNameUtil::propertyNameOf)
+                .distinct()
+                .toArray(String[]::new);
+    }
 
 
 }

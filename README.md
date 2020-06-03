@@ -52,7 +52,7 @@ Ships preconfigured in strict Mode.
   
 ## advanced example  
   
-``java
+```java
     @Test
     public void fullCompareEasy_globalConfig(){
         Person p = Person.builder()

@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  * Fields may be ignored with {@link FullComparePropertyConfigurer#ignore(Types.Supplier)}.
  *
  * PartialCompare (applied by using {@link SelectivePropertiesConfigurer#include(Types.Supplier)})
- * Uses only explicitly excluded fields from root.
+ * Uses only explicitly included fields from root.
  *
  *
  * Supports local and global Configuration for each mode:
@@ -54,10 +54,18 @@ public class Comparison implements
 {
     private final static Logger log = Logger.getLogger(Comparison.class.getName());
 
+    /**
+     * Comparison is initialized with Global Config, if present.
+     * Otherwise default Configs get created.
+     */
+
     public static PartialCompareConfig  GLOBAL_PARTIAL_COMPARE_CONFIG;
     public static FullCompareConfig     GLOBAL_FULL_COMPARE_CONFIG;
 
 
+    /**
+     * Local Config within scope of one Compare Process aka one {@link Comparison}.
+     */
     private FullCompareConfig           fullCompareConfig;
     private PartialCompareConfig        partialCompareConfig;
 

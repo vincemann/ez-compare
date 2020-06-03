@@ -20,6 +20,7 @@ Ships preconfigured in strict Mode.
   ```java
     @Test
     public void fullCompareEasy(){
+        // using default config aka strict mode 
         Person p = Person.builder()
                 .name("same")
                 .address("same")
@@ -54,35 +55,38 @@ Ships preconfigured in strict Mode.
   
 ```java
     @Test
-    public void fullCompareEasy_globalConfig(){
+    public void fullCompareEasy_getDiff(){
         Person p = Person.builder()
-                .name("always ignored")
-                .creatorIp("always ignored")
-                .address("same")
+                .name("unimportant")
+                .address("veryDiff")
                 .age(42)
+                .tel(null)
+                .creatorIp("unimportant")
                 .build();
 
         PersonDTO dto = PersonDTO.builder()
-                .name("am I really ignored?")
                 .age(42)
-                .address("same")
+                .tel(42L)
+                //address and name is irrelevant, all other properties must be equal
+                .address("diff")
+                .name(null)
                 .build();
 
-        //i.E. Name is always diff in database compared to dto + ip irrelevant in dev env
-        // -> creating Global Dev Compare Config
-        //this could be initialized once in an abstract test ect. and would survive between tests
-        Comparison.modFullCompareGlobalConfig()
-                .ignoreProperty(p::getCreatorIp)
-                .ignoreProperty("name")
-                .ignoreNotFound(true)
-                .ignoreNull(true);
-        
         //only properties that are not null and present in both compare objects are relevant
-        compare(p).with(dto)
+        RapidEqualsBuilder.Diff diff = compare(p).with(dto)
+                .ignoreNotFound(true)       //creatorIp will be ignored
+                .ignoreNull(true)           //tel       will be ignored
                 .properties()
                 .all()
-                .assertEqual();
-     }
+                //we dont care about name neither
+                .ignore(p::getName)
+                .assertNotEqual()
+                .getDiff();
+
+        //just to showcase it worked the way it is expected
+        Assertions.assertEquals(1,diff.getDiffNodes().size());
+        Assertions.assertEquals(propertyNameOf(p::getAddress),diff.getFirstNode().getProperty());
+    }
 
 ```
   

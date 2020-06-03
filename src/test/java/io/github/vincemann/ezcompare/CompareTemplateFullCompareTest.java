@@ -1,7 +1,6 @@
 package io.github.vincemann.ezcompare;
 
 import io.github.vincemann.ezcompare.domain.IdentifiableEntityImpl;
-import io.github.vincemann.ezcompare.template.*;
 import io.github.vincemann.ezcompare.util.MethodNameUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static io.github.vincemann.ezcompare.template.Comparison.compare;
+import static io.github.vincemann.ezcompare.Comparison.compare;
 
 
 class CompareTemplateFullCompareTest {

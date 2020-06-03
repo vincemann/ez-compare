@@ -2,7 +2,6 @@ package io.github.vincemann.ezcompare;
 
 import com.github.hervian.reflection.Types;
 import io.github.vincemann.ezcompare.domain.IdentifiableEntityImpl;
-import io.github.vincemann.ezcompare.template.Comparison;
 import lombok.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static io.github.vincemann.ezcompare.template.Comparison.compare;
+import static io.github.vincemann.ezcompare.Comparison.compare;
 
 
 class CompareTemplatePartialCompareTest {

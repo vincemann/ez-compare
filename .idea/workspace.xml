@@ -2,36 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e58ad0d4-e057-425d-93f7-a022bad3366a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/CompareTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/Comparison.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/ConfigConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/ConfigConfigurer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/FullCompareOptionsConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/FullCompareOptionsConfigurer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/PartialCompareOptionsConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/PartialCompareOptionsConfigurer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidArgumentMatchers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidArgumentMatchers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidEqualsBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidEqualsBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidReflectionEquals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidReflectionEquals.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/ActorBridge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/ActorBridge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/ActorConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/ActorConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/CompareOptionsConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/CompareOptionsConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/Comparison.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/Comparison.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/ConfigConfigurer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/FullCompareOptionsConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/FullCompareOptionsConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/FullComparePropertyConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/FullComparePropertyConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/OperationConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/OperationConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/PartialAdditionalPropertyConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/PartialAdditionalPropertyConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/PartialCompareOptionsConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/PartialCompareOptionsConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/PartialPropertyConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/PartialPropertyConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/PropertyBridge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/PropertyBridge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/PropertyNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/PropertyNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidArgumentMatchers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/RapidArgumentMatchers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidEqualsBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/RapidEqualsBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidReflectionEquals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/RapidReflectionEquals.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/ResultProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/ResultProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/SelectiveOptionsConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/SelectiveOptionsConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/SelectivePropertiesConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/SelectivePropertiesConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/util/MethodNameUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/util/MethodNameUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare/CompareTemplateFullCompareTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare/CompareTemplateFullCompareTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare/CompareTemplatePartialCompareTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare/CompareTemplatePartialCompareTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/CompareTemplate$CompareTemplateConfig$CompareTemplateConfigBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/CompareTemplate$CompareTemplateConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/CompareTemplate$FullCompareConfig$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/CompareTemplate$FullCompareConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/CompareTemplate$PartialCompareConfig$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/CompareTemplate$PartialCompareConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/CompareTemplate.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/ConfigConfigurer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/ConfigConfigurer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/FullCompareOptionsConfigurer$FullCompareConfigConfigurer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/FullCompareOptionsConfigurer$FullCompareConfigConfigurer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/PartialCompareOptionsConfigurer$PartialCompareConfigConfigurer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/PartialCompareOptionsConfigurer$PartialCompareConfigConfigurer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/RapidArgumentMatchers.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/RapidArgumentMatchers.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/RapidEqualsBuilder$CompareConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/RapidEqualsBuilder$CompareConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/RapidEqualsBuilder$Diff$DiffBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/RapidEqualsBuilder$Diff.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/RapidEqualsBuilder$Diff.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/RapidEqualsBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/RapidEqualsBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/RapidReflectionEquals.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/vincemann/ezcompare/template/RapidReflectionEquals.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/io/github/vincemann/ezcompare/CompareTemplateFullCompareTest$Child.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/io/github/vincemann/ezcompare/CompareTemplateFullCompareTest$Child.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/io/github/vincemann/ezcompare/CompareTemplateFullCompareTest$Parent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/io/github/vincemann/ezcompare/CompareTemplateFullCompareTest$Parent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/io/github/vincemann/ezcompare/CompareTemplateFullCompareTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/io/github/vincemann/ezcompare/CompareTemplateFullCompareTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/io/github/vincemann/ezcompare/CompareTemplatePartialCompareTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/io/github/vincemann/ezcompare/CompareTemplatePartialCompareTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +190,7 @@
       <workItem from="1590690811714" duration="16661000" />
       <workItem from="1590760066927" duration="3131000" />
       <workItem from="1591009954264" duration="3084000" />
-      <workItem from="1591178097091" duration="12330000" />
+      <workItem from="1591178097091" duration="14299000" />
     </task>
     <servers />
   </component>
@@ -216,10 +210,10 @@
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
     <state x="387" y="435" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1912.1015@0.0.1912.1015" timestamp="1590699230437" />
-    <state x="717" y="369" width="543" height="287" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1590698985477">
+    <state x="717" y="369" width="543" height="287" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1591192455035">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state x="717" y="369" width="543" height="287" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1912.1015@0.0.1912.1015" timestamp="1590698985477" />
+    <state x="717" y="369" width="543" height="287" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1912.1015@0.0.1912.1015" timestamp="1591192455035" />
     <state x="717" y="390" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1590699231492">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
@@ -232,22 +226,22 @@
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
     <state width="559" height="485" key="DebuggerActiveHint/0.0.1912.1015@0.0.1912.1015" timestamp="1590697356603" />
-    <state width="1870" height="408" key="GridCell.Tab.0.bottom" timestamp="1591190282063">
+    <state width="1870" height="408" key="GridCell.Tab.0.bottom" timestamp="1591190669388">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state width="1870" height="408" key="GridCell.Tab.0.bottom/0.0.1912.1015@0.0.1912.1015" timestamp="1591190282063" />
-    <state width="1870" height="408" key="GridCell.Tab.0.center" timestamp="1591190282063">
+    <state width="1870" height="408" key="GridCell.Tab.0.bottom/0.0.1912.1015@0.0.1912.1015" timestamp="1591190669388" />
+    <state width="1870" height="408" key="GridCell.Tab.0.center" timestamp="1591190669387">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state width="1870" height="408" key="GridCell.Tab.0.center/0.0.1912.1015@0.0.1912.1015" timestamp="1591190282063" />
-    <state width="1870" height="408" key="GridCell.Tab.0.left" timestamp="1591190282063">
+    <state width="1870" height="408" key="GridCell.Tab.0.center/0.0.1912.1015@0.0.1912.1015" timestamp="1591190669387" />
+    <state width="1870" height="408" key="GridCell.Tab.0.left" timestamp="1591190669386">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state width="1870" height="408" key="GridCell.Tab.0.left/0.0.1912.1015@0.0.1912.1015" timestamp="1591190282063" />
-    <state width="1870" height="408" key="GridCell.Tab.0.right" timestamp="1591190282063">
+    <state width="1870" height="408" key="GridCell.Tab.0.left/0.0.1912.1015@0.0.1912.1015" timestamp="1591190669386" />
+    <state width="1870" height="408" key="GridCell.Tab.0.right" timestamp="1591190669387">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state width="1870" height="408" key="GridCell.Tab.0.right/0.0.1912.1015@0.0.1912.1015" timestamp="1591190282063" />
+    <state width="1870" height="408" key="GridCell.Tab.0.right/0.0.1912.1015@0.0.1912.1015" timestamp="1591190669387" />
     <state width="1870" height="334" key="GridCell.Tab.1.bottom" timestamp="1591187366972">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
@@ -276,10 +270,10 @@
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
     <state x="743" y="427" width="418" height="155" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1912.1015@0.0.1912.1015" timestamp="1591188919328" />
-    <state x="531" y="223" width="849" height="568" key="find.popup" timestamp="1591187342381">
+    <state x="531" y="223" width="849" height="568" key="find.popup" timestamp="1591191772805">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state x="531" y="223" width="849" height="568" key="find.popup/0.0.1912.1015@0.0.1912.1015" timestamp="1591187342381" />
+    <state x="531" y="223" width="849" height="568" key="find.popup/0.0.1912.1015@0.0.1912.1015" timestamp="1591191772805" />
     <state x="654" y="128" width="595" height="754" key="refactoring.ChangeSignatureDialog" timestamp="1590760407300">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
@@ -288,42 +282,42 @@
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
     <state x="620" y="233" width="672" height="677" key="run.anything.popup/0.0.1912.1015@0.0.1912.1015" timestamp="1591183268215" />
-    <state x="619" y="222" width="672" height="678" key="search.everywhere.popup" timestamp="1591189337513">
+    <state x="619" y="222" width="672" height="678" key="search.everywhere.popup" timestamp="1591190672199">
       <screen x="0" y="0" width="1912" height="1015" />
     </state>
-    <state x="619" y="222" width="672" height="678" key="search.everywhere.popup/0.0.1912.1015@0.0.1912.1015" timestamp="1591189337513" />
+    <state x="619" y="222" width="672" height="678" key="search.everywhere.popup/0.0.1912.1015@0.0.1912.1015" timestamp="1591190672199" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidEqualsBuilder.java</url>
-          <line>162</line>
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/RapidEqualsBuilder.java</url>
+          <line>147</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidEqualsBuilder.java</url>
-          <line>743</line>
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/RapidEqualsBuilder.java</url>
+          <line>728</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidEqualsBuilder.java</url>
-          <line>156</line>
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/RapidEqualsBuilder.java</url>
+          <line>141</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidEqualsBuilder.java</url>
-          <line>190</line>
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/RapidEqualsBuilder.java</url>
+          <line>175</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/Comparison.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/Comparison.java</url>
           <line>138</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/template/RapidReflectionEquals.java</url>
-          <line>29</line>
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/vincemann/ezcompare/RapidReflectionEquals.java</url>
+          <line>34</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>

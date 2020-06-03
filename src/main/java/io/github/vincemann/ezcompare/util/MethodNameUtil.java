@@ -1,7 +1,6 @@
 package io.github.vincemann.ezcompare.util;
 
 import com.github.hervian.reflection.Types;
-import io.github.vincemann.ezcompare.template.RapidEqualsBuilder;
 
 import java.lang.reflect.Method;
 

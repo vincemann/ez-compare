@@ -17,14 +17,14 @@ public class RapidArgumentMatchers {
      * Does not perform deep compare -> only scans fields from root and performs equal on all of those (depth = 1)
      * Can compare diff Types, if field names match.
      *
-     * @param root  root Actor of comparison, see {@link CompareTemplate#getRootActor()}
+     * @param root  root Actor of comparison, see {@link CompareTemplate#getRoot()}
      * @param <T>
      * @return
      */
     public static <T> T fullRefEq(T root, String... ignoredProperties) {
         return fullRefEq(
                 root,
-                CompareTemplate.FullCompareConfig.createDefault()
+                CompareTemplate.FullCompareConfig.modGlobal()
                         .ignoredProperties(Sets.newHashSet(ignoredProperties))
                         .build()
         );
@@ -35,7 +35,7 @@ public class RapidArgumentMatchers {
     }
 
     public static <T> T fullRefEq(T root, CompareTemplate.FullCompareConfig config) {
-        reportMatcher(new RapidReflectionEquals(root, config.convert(root)));
+        reportMatcher(new RapidReflectionEquals(root, config));
         return null;
     }
 
@@ -50,14 +50,14 @@ public class RapidArgumentMatchers {
     public static <T> T partialRefEq(T root, String... includedProperties) {
         return partialRefEq(
                 root,
-                CompareTemplate.PartialCompareConfig.createDefault()
+                CompareTemplate.PartialCompareConfig.modGlobal()
                         .includedProperties(Sets.newHashSet(includedProperties))
                         .build()
         );
     }
 
     public static <T> T partialRefEq(T root, CompareTemplate.PartialCompareConfig config) {
-        reportMatcher(new RapidReflectionEquals(root, config.convert(root)));
+        reportMatcher(new RapidReflectionEquals(root, config));
         return null;
     }
 

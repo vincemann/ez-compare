@@ -27,43 +27,42 @@ public class RapidEqualsBuilder {
      * If the fields tested are equals.
      * The default value is <code>true</code>.
      */
-    private Diff diff = new Diff();
+    private Diff diff;
+    private CompareConfig config;
 
 
 
-
+    @ToString
     public static class CompareConfig {
-        // default config
-        protected boolean ignoreNull = false;
-        protected boolean ignoreNotFound = false;
-        protected boolean useNullForNotFound = false;
-        protected Set<String> ignoredProperties = new HashSet<>();
-        protected Class<?> reflectUpToClass = null;
-        protected boolean fullDiff = true;
+        //                                      default config
+        protected boolean ignoreNull            =          false;
+        protected boolean ignoreNotFound        =          false;
+        protected boolean useNullForNotFound    =          false;
+        protected Set<String> ignoredProperties =          new HashSet<>();
+        protected Class<?> reflectUpToClass     =          null;
+        protected boolean minimalDiff           =          false;
 
+        /**
+         * Called before compare to apply runtime config parts
+         * i.E. included Properties by SuperClass needs class of RootActor to determine all properties in order to determine ignoredProperties
+         * @param rootActor
+         * @param compareActor
+         */
+        protected void init(Object rootActor,Object compareActor){}
 
-        protected void setIgnoreNull(boolean ignoreNull) {
-            this.ignoreNull = ignoreNull;
+        public Class<?> getReflectUpToClass() {
+            return reflectUpToClass;
+        }
+        public boolean isMinimalDiff() {
+            return minimalDiff;
         }
 
-        protected void setIgnoreNotFound(boolean ignoreNotFound) {
-            this.ignoreNotFound = ignoreNotFound;
+        public void setReflectUpToClass(Class<?> c) {
+            reflectUpToClass = c;
         }
 
-        protected void setUseNullForNotFound(boolean useNullForNotFound) {
-            this.useNullForNotFound = useNullForNotFound;
-        }
-
-        protected void setIgnoredProperties(Set<String> ignoredProperties) {
-            this.ignoredProperties = ignoredProperties;
-        }
-
-        protected void setFullDiff(boolean fullDiff) {
-            this.fullDiff = fullDiff;
-        }
-
-        protected void setReflectUpToClass(Class<?> reflectUpToClass) {
-            this.reflectUpToClass = reflectUpToClass;
+        public void setMinimalDiff(boolean v) {
+            minimalDiff=v;
         }
 
     }
@@ -74,9 +73,12 @@ public class RapidEqualsBuilder {
      *
      * @see Object#equals(Object)
      */
-    public RapidEqualsBuilder() {
-        // do nothing for now.
-
+    public RapidEqualsBuilder(CompareConfig config) {
+        this.config = config;
+        this.diff = Diff.builder()
+                .different(false)
+                .minimal(config.minimalDiff)
+                .build();
     }
 
 
@@ -102,7 +104,7 @@ public class RapidEqualsBuilder {
      */
 
     public static Diff reflectionEquals(Object root, Object compare) {
-        return reflectionEquals(root, compare, CompareConfig.createDefault());
+        return reflectionEquals(root, compare, new CompareConfig());
     }
 
 
@@ -129,16 +131,15 @@ public class RapidEqualsBuilder {
      * @since 2.1.0
      */
     public static Diff reflectionEquals(Object root, Object compare, CompareConfig config) {
-
-        if (root == compare) {
-            return new Diff();
-        }
-        if (root == null || compare == null) {
-            throw new IllegalArgumentException("Comparing Objects must not be null");
-        }
         if (config==null){
             throw new IllegalArgumentException("Config must not be null");
         }
+        config.init(root,compare);
+        
+        if (root == null || compare == null) {
+            throw new IllegalArgumentException("Comparing Objects must not be null");
+        }
+
         // Find the leaf class since there may be transients in the leaf
         // class or in classes between the leaf and root.
         // If we are not testing transients or a subclass has no ivars,
@@ -148,7 +149,12 @@ public class RapidEqualsBuilder {
         Class<?> rootClass = root.getClass();
         Class<?> compareClass = compare.getClass();
 
-        RapidEqualsBuilder equalsBuilder = new RapidEqualsBuilder();
+        RapidEqualsBuilder equalsBuilder = new RapidEqualsBuilder(config);
+        
+        if (root == compare) {
+            //in init state is diff set to 'not different'
+            return equalsBuilder.diff;
+        }
 
         try {
             reflectionAppend(root, compare, rootClass, compareClass, equalsBuilder, config);
@@ -163,7 +169,11 @@ public class RapidEqualsBuilder {
                     "             If a subclass has ivars that we are trying to test them, we get an\n" +
                     "             exception and we know that the objects are not equal.");
 
-            return Diff.different();
+            return Diff.builder()
+                    .different(true)
+                    .minimal(config.minimalDiff)
+                    //rest is unknown at this point
+                    .build();
         }
         return equalsBuilder.getDiff();
     }
@@ -257,14 +267,14 @@ public class RapidEqualsBuilder {
      * @return RapidEqualsBuilder - used to chain calls.
      */
     public RapidEqualsBuilder append(Object rootProperty, Object compareProperty, String propertyName) {
-        if (!isEquals()) {
+        if (done()) {
             return this;
         }
         if (rootProperty == compareProperty) {
             return this;
         }
         if (rootProperty == null || compareProperty == null) {
-            this.setDiff(propertyName, rootProperty, compareProperty);
+            this.addDiff(propertyName, rootProperty, compareProperty);
             return this;
         }
         Class<?> lhsClass = rootProperty.getClass();
@@ -272,16 +282,16 @@ public class RapidEqualsBuilder {
             if (rootProperty instanceof java.math.BigDecimal && compareProperty instanceof java.math.BigDecimal) {
                 boolean isEquals = (((java.math.BigDecimal) rootProperty).compareTo((java.math.BigDecimal) compareProperty) == 0);
                 if (!isEquals)
-                    setDiff(propertyName, rootProperty, compareProperty);
+                    addDiff(propertyName, rootProperty, compareProperty);
             } else {
                 // The simple case, not an array, just test the element
                 boolean isEquals = rootProperty.equals(compareProperty);
                 if (!isEquals)
-                    setDiff(propertyName, rootProperty, compareProperty);
+                    addDiff(propertyName, rootProperty, compareProperty);
             }
         } else if (rootProperty.getClass() != compareProperty.getClass()) {
             // Here when we compare different dimensions, for example: a boolean[][] to a boolean[]
-            this.setDiff(propertyName, rootProperty, compareProperty);
+            this.addDiff(propertyName, rootProperty, compareProperty);
 
             // 'Switch' on type of array, to dispatch to the correct handler
             // This handles multi dimensional arrays of the same depth
@@ -411,7 +421,7 @@ public class RapidEqualsBuilder {
      * @return RapidEqualsBuilder - used to chain calls.
      */
     public RapidEqualsBuilder append(float lhs, float rhs) {
-        if (!isEquals()) {
+        if (done()) {
             return this;
         }
         return append(Float.floatToIntBits(lhs), Float.floatToIntBits(rhs));
@@ -441,18 +451,18 @@ public class RapidEqualsBuilder {
      * @return RapidEqualsBuilder - used to chain calls.
      */
     public RapidEqualsBuilder append(Object[] lhs, Object[] rhs, String property) {
-        if (!isEquals()) {
+        if (done()) {
             return this;
         }
         if (lhs == rhs) {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals(); ++i) {
@@ -472,21 +482,21 @@ public class RapidEqualsBuilder {
      * @return RapidEqualsBuilder - used to chain calls.
      */
     public RapidEqualsBuilder append(long[] lhs, long[] rhs, String property) {
-        if (!isEquals()) {
+        if (done()) {
             return this;
         }
         if (lhs == rhs) {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
-        for (int i = 0; i < lhs.length && isEquals(); ++i) {
+        for (int i = 0; i < lhs.length && !done(); ++i) {
             append(lhs[i], rhs[i]);
         }
         return this;
@@ -503,18 +513,18 @@ public class RapidEqualsBuilder {
      * @return RapidEqualsBuilder - used to chain calls.
      */
     public RapidEqualsBuilder append(int[] lhs, int[] rhs, String property) {
-        if (!isEquals()) {
+        if (done()) {
             return this;
         }
         if (lhs == rhs) {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals(); ++i) {
@@ -534,21 +544,21 @@ public class RapidEqualsBuilder {
      * @return RapidEqualsBuilder - used to chain calls.
      */
     public RapidEqualsBuilder append(short[] lhs, short[] rhs, String property) {
-        if (!isEquals()) {
+        if (done()) {
             return this;
         }
         if (lhs == rhs) {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
-        for (int i = 0; i < lhs.length && isEquals(); ++i) {
+        for (int i = 0; i < lhs.length && !done(); ++i) {
             append(lhs[i], rhs[i]);
         }
         return this;
@@ -565,21 +575,21 @@ public class RapidEqualsBuilder {
      * @return RapidEqualsBuilder - used to chain calls.
      */
     public RapidEqualsBuilder append(char[] lhs, char[] rhs, String property) {
-        if (!isEquals()) {
+        if (done()) {
             return this;
         }
         if (lhs == rhs) {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
-        for (int i = 0; i < lhs.length && isEquals(); ++i) {
+        for (int i = 0; i < lhs.length && !done(); ++i) {
             append(lhs[i], rhs[i]);
         }
         return this;
@@ -596,21 +606,21 @@ public class RapidEqualsBuilder {
      * @return RapidEqualsBuilder - used to chain calls.
      */
     public RapidEqualsBuilder append(byte[] lhs, byte[] rhs, String property) {
-        if (!isEquals()) {
+        if (done()) {
             return this;
         }
         if (lhs == rhs) {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
-        for (int i = 0; i < lhs.length && isEquals(); ++i) {
+        for (int i = 0; i < lhs.length && !done(); ++i) {
             append(lhs[i], rhs[i]);
         }
         return this;
@@ -627,21 +637,21 @@ public class RapidEqualsBuilder {
      * @return RapidEqualsBuilder - used to chain calls.
      */
     public RapidEqualsBuilder append(double[] lhs, double[] rhs, String property) {
-        if (!isEquals()) {
+        if (done()) {
             return this;
         }
         if (lhs == rhs) {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
-        for (int i = 0; i < lhs.length && isEquals(); ++i) {
+        for (int i = 0; i < lhs.length && !done(); ++i) {
             append(lhs[i], rhs[i]);
         }
         return this;
@@ -658,21 +668,21 @@ public class RapidEqualsBuilder {
      * @return RapidEqualsBuilder - used to chain calls.
      */
     public RapidEqualsBuilder append(float[] lhs, float[] rhs, String property) {
-        if (!isEquals()) {
+        if (done()) {
             return this;
         }
         if (lhs == rhs) {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
-        for (int i = 0; i < lhs.length && isEquals(); ++i) {
+        for (int i = 0; i < lhs.length && !done(); ++i) {
             append(lhs[i], rhs[i]);
         }
         return this;
@@ -689,21 +699,21 @@ public class RapidEqualsBuilder {
      * @return RapidEqualsBuilder - used to chain calls.
      */
     public RapidEqualsBuilder append(boolean[] lhs, boolean[] rhs, String property) {
-        if (!isEquals()) {
+        if (done()) {
             return this;
         }
         if (lhs == rhs) {
             return this;
         }
         if (lhs == null || rhs == null) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
         if (lhs.length != rhs.length) {
-            this.setDiff(property, lhs, rhs);
+            this.addDiff(property, lhs, rhs);
             return this;
         }
-        for (int i = 0; i < lhs.length && isEquals(); ++i) {
+        for (int i = 0; i < lhs.length && !done(); ++i) {
             append(lhs[i], rhs[i]);
         }
         return this;
@@ -720,7 +730,20 @@ public class RapidEqualsBuilder {
      * @return boolean
      */
     public boolean isEquals() {
-        return this.diff.isEmpty();
+        return !this.diff.isDifferent();
+    }
+    
+    public boolean minimalDiff(){
+        return this.config.minimalDiff;
+    }
+
+    /**
+     * Indicates that it is already clear that objects differ and only minimal diff is required
+     * -> algorithm can stop and return result.
+     * @return
+     */
+    public boolean done(){
+        return !isEquals() && minimalDiff();
     }
 
     /**
@@ -728,8 +751,9 @@ public class RapidEqualsBuilder {
      *
      * @since 2.1
      */
-    protected void setDiff(String property, Object rootValue, Object compareValue) {
+    protected void addDiff(String property, Object rootValue, Object compareValue) {
         this.diff = Diff.builder()
+                .minimal(config.minimalDiff)
                 .property(property)
                 .rootValue(rootValue)
                 .compareValue(compareValue)
@@ -737,24 +761,15 @@ public class RapidEqualsBuilder {
                 .build();
     }
 
-    @AllArgsConstructor
-    @Builder
     @Getter
-    @Setter
-    @NoArgsConstructor
     @ToString
+    @Builder(access = AccessLevel.PROTECTED)
     public static class Diff {
         private String property;
         private Object rootValue;
         private Object compareValue;
-        private boolean different = false;
-        private boolean minimal = true;
-
-        public static Diff different() {
-            Diff diff = new Diff();
-            diff.setDifferent(true);
-            return diff;
-        }
+        private Boolean different = Boolean.FALSE;
+        private Boolean minimal = null;
 
         public boolean isDifferent() {
             return this.different;

@@ -1,4 +1,4 @@
-package io.github.vincemann.ezcompare;
+package io.github.vincemann.ezcompare.domain;
 
 import java.io.Serializable;
 

@@ -1,8 +1,10 @@
 package io.github.vincemann.ezcompare;
 
 import com.github.hervian.reflection.Types;
+import io.github.vincemann.ezcompare.domain.IdentifiableEntityImpl;
 import io.github.vincemann.ezcompare.template.CompareTemplate;
 import lombok.*;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +14,7 @@ import java.util.Set;
 import static io.github.vincemann.ezcompare.template.CompareTemplate.compare;
 
 
-class CompareTemplateSelectPropertyTest {
+class CompareTemplatePartialCompareTest {
 
 
 
@@ -23,13 +25,13 @@ class CompareTemplateSelectPropertyTest {
 
         String name;
         int age;
-        CompareTemplateFullEqualTest.Child child;
-        Set<CompareTemplateFullEqualTest.Child> childSet;
+        CompareTemplateFullCompareTest.Child child;
+        Set<CompareTemplateFullCompareTest.Child> childSet;
 
         public Parent() {
         }
 
-        public Parent(CompareTemplateFullEqualTest.Parent copy){
+        public Parent(CompareTemplateFullCompareTest.Parent copy){
             this(copy.name,copy.age,copy.child,copy.childSet);
             setId(copy.getId());
         }
@@ -61,7 +63,7 @@ class CompareTemplateSelectPropertyTest {
     class Child extends IdentifiableEntityImpl<Long>{
         String name;
         String address;
-        CompareTemplateFullEqualTest.Parent parent;
+        CompareTemplateFullCompareTest.Parent parent;
 
         public Child() {
         }
@@ -69,7 +71,13 @@ class CompareTemplateSelectPropertyTest {
 
     @BeforeEach
     void setUp() {
+        //no global config that could interfere with test
         Assertions.assertNull(CompareTemplate.GLOBAL_PARTIAL_COMPARE_CONFIG);
+    }
+
+    @AfterEach
+    void tearDown() {
+        CompareTemplate.GLOBAL_PARTIAL_COMPARE_CONFIG=null;
     }
 
     @Test
@@ -82,7 +90,7 @@ class CompareTemplateSelectPropertyTest {
         second.setAge(42);
         second.setName("junker");
 
-        boolean equal = compareWithProperty(parent,second,parent::getAge);
+        boolean equal = compareSingleProperty(parent,second,parent::getAge);
 
         Assertions.assertTrue(equal);
     }
@@ -97,7 +105,7 @@ class CompareTemplateSelectPropertyTest {
         second.setAge(42);
         second.setName("meier");
 
-        boolean equal = compareWithProperty(parent,second,parent::getAge);
+        boolean equal = compareSingleProperty(parent,second,parent::getAge);
 
         Assertions.assertFalse(equal);
     }
@@ -111,7 +119,7 @@ class CompareTemplateSelectPropertyTest {
         Child child = new Child();
         child.setName("meier");
 
-        boolean equal = compareWithProperty(parent,child,parent::getName);
+        boolean equal = compareSingleProperty(parent,child,parent::getName);
         Assertions.assertTrue(equal);
     }
 
@@ -126,7 +134,7 @@ class CompareTemplateSelectPropertyTest {
         //child.setId(2L);
         child.setName("meier");
 
-        boolean equal = compareWithProperty(parent,child,parent::getName);
+        boolean equal = compareSingleProperty(parent,child,parent::getName);
 
 
         Assertions.assertFalse(equal);
@@ -143,7 +151,7 @@ class CompareTemplateSelectPropertyTest {
         child.setId(1L);
         child.setName("meier");
 
-        boolean equal = compareWithProperty(parent,child,parent::getName);
+        boolean equal = compareSingleProperty(parent,child,parent::getName);
 
         Assertions.assertFalse(equal);
     }
@@ -158,7 +166,7 @@ class CompareTemplateSelectPropertyTest {
         child.setName("meier");
         child.setAge(42);
 
-        boolean equal = compareWithProperty(parent,child,parent::getName);
+        boolean equal = compareSingleProperty(parent,child,parent::getName);
 
         Assertions.assertFalse(equal);
     }
@@ -173,7 +181,7 @@ class CompareTemplateSelectPropertyTest {
         child.setName("meier");
         child.setAge(42);
 
-        boolean equal = compareWithProperty(parent,child,parent::getAge);
+        boolean equal = compareSingleProperty(parent,child,parent::getAge);
 
 
         Assertions.assertTrue(equal);
@@ -189,7 +197,7 @@ class CompareTemplateSelectPropertyTest {
         child.setName("meier");
         child.setAge(42);
 
-        boolean equal = compareWithProperty(parent,child,parent::getAge);
+        boolean equal = compareSingleProperty(parent,child,parent::getAge);
 
         Assertions.assertTrue(equal);
     }
@@ -206,7 +214,7 @@ class CompareTemplateSelectPropertyTest {
         second.setAge(42);
         second.setName("junker");
 
-        boolean equal = compareWithProperty(parent,second,parent::getName);
+        boolean equal = compareSingleProperty(parent,second,parent::getName);
 
         Assertions.assertFalse(equal);
     }
@@ -221,7 +229,7 @@ class CompareTemplateSelectPropertyTest {
         second.setAge(42);
         second.setName(null);
 
-        boolean equal = compareWithProperty(parent, second, parent::getName);
+        boolean equal = compareSingleProperty(parent, second, parent::getName);
 
         Assertions.assertTrue(equal);
     }
@@ -236,14 +244,14 @@ class CompareTemplateSelectPropertyTest {
         second.setAge(42);
         second.setName("not null");
 
-        boolean equal = compareWithProperty(parent, second, parent::getName);
+        boolean equal = compareSingleProperty(parent, second, parent::getName);
 
         Assertions.assertFalse(equal);
     }
     
     
 
-    private boolean compareWithProperty(Object root, Object compare, Types.Supplier<?> getter){
+    private boolean compareSingleProperty(Object root, Object compare, Types.Supplier<?> getter){
         return compare(root)
                 .with(compare)
                 .properties()

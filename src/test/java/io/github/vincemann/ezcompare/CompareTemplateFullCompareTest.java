@@ -1,14 +1,13 @@
 package io.github.vincemann.ezcompare;
 
-import io.github.vincemann.ezcompare.template.PropertyNotFoundException;
-import io.github.vincemann.ezcompare.template.RapidEqualsBuilder;
-import io.github.vincemann.ezcompare.template.CompareTemplate;
-import io.github.vincemann.ezcompare.template.ResultProvider;
+import io.github.vincemann.ezcompare.domain.IdentifiableEntityImpl;
+import io.github.vincemann.ezcompare.template.*;
 import io.github.vincemann.ezcompare.util.MethodNameUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,12 +17,17 @@ import java.util.Set;
 import static io.github.vincemann.ezcompare.template.CompareTemplate.compare;
 
 
-class CompareTemplateFullEqualTest {
+class CompareTemplateFullCompareTest {
 
 
     @BeforeEach
     void setUp() {
-        Assertions.assertNull(CompareTemplate.GLOBAL_PARTIAL_COMPARE_CONFIG);
+        Assertions.assertNull(CompareTemplate.GLOBAL_FULL_COMPARE_CONFIG);
+    }
+
+    @AfterEach
+    void tearDown() {
+        CompareTemplate.GLOBAL_FULL_COMPARE_CONFIG=null;
     }
 
     @Test
@@ -199,7 +203,7 @@ class CompareTemplateFullEqualTest {
                 .ignore(child::getParent)
                 .assertNotEqual();
 
-        Assertions.assertFalse(resultProvider.getDiff().isEmpty());
+        Assertions.assertTrue(resultProvider.getDiff().isDifferent());
         Assertions.assertFalse(resultProvider.isEqual());
         Assertions.assertEquals(MethodNameUtil.propertyNameOf(child::getAddress),resultProvider.getDiff().getProperty());
     }

@@ -21,26 +21,6 @@ public class RapidReflectionEquals implements ArgumentMatcher<Object>, Serializa
     @Setter
     private RapidEqualsBuilder.CompareConfig config;
 
-//    public RapidReflectionEquals(Object wanted, String... ignoredProperties) {
-//        this(
-//                wanted,
-//                CompareTemplate.FullCompareConfig.builder()
-//                        .ignoredProperties(Sets.newHashSet(ignoredProperties))
-//                        .build()
-//                        .convert()
-//        );
-//    }
-//
-//    public RapidReflectionEquals(Object wanted, boolean ignoreNull, String... ignoredProperties) {
-//        this(
-//                wanted,
-//                CompareTemplate.FullCompareConfig.builder()
-//                        .ignoreNull(ignoreNull)
-//                        .ignoredProperties(Sets.newHashSet(ignoredProperties))
-//                        .build()
-//                        .convert()
-//        );
-//    }
 
     public RapidReflectionEquals(Object wanted, RapidEqualsBuilder.CompareConfig config) {
         this.wanted = wanted;
@@ -55,7 +35,7 @@ public class RapidReflectionEquals implements ArgumentMatcher<Object>, Serializa
             log.log(Level.INFO, "Wanted: " + wanted + "and actual: " + actual + " differ:");
             log.log(Level.INFO, diff.toString());
         }
-        return diff.isEmpty();
+        return !diff.isDifferent();
     }
 
     public String toString() {

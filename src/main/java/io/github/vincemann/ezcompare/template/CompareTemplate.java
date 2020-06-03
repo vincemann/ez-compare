@@ -9,14 +9,13 @@ import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
 @Getter
 @Setter
 public class CompareTemplate implements
-        ActorConfigurer, AdditionalActorConfigurer,
+        ActorConfigurer, ActorBridge,
         SelectiveOptionsConfigurer, FullCompareOptionsConfigurer, PartialCompareOptionsConfigurer,CompareOptionsConfigurer,
         PropertyBridge,
         SelectivePropertiesConfigurer, FullComparePropertyConfigurer, PartialPropertyConfigurer, PartialAdditionalPropertyConfigurer,
@@ -25,34 +24,34 @@ public class CompareTemplate implements
 {
     private final static Logger log = Logger.getLogger(CompareTemplate.class.getName());
 
-    public static PartialCompareConfig GLOBAL_PARTIAL_COMPARE_CONFIG;
-    public static FullCompareConfig GLOBAL_FULL_COMPARE_CONFIG;
+    public static PartialCompareConfig  GLOBAL_PARTIAL_COMPARE_CONFIG;
+    public static FullCompareConfig     GLOBAL_FULL_COMPARE_CONFIG;
 
 
-    private FullCompareConfig fullCompareConfig;
-    private PartialCompareConfig partialCompareConfig;
+    private FullCompareConfig           fullCompareConfig;
+    private PartialCompareConfig        partialCompareConfig;
 
-    private Object rootActor;
-    private List<Object> actors = new ArrayList<>();
-    private Set<String> properties = new HashSet<>();
+    private Object root;
+    private Object compare = new ArrayList<>();
 
     private RapidEqualsBuilder.Diff diff;
     private Boolean fullCompare = null;
 
-    protected CompareTemplate(Object rootActor) {
-        this.rootActor = rootActor;
-        initConfig();
+    protected CompareTemplate(Object root) {
+        this.root = root;
+        this.fullCompareConfig  = getGlobalFullCompareConfig();
+        this.partialCompareConfig = getGlobalPartialCompareConfig();
     }
 
-    private void initConfig(){
-        this.fullCompareConfig =
-                GLOBAL_FULL_COMPARE_CONFIG == null
-                        ? FullCompareConfig.createDefault().build()
-                        : GLOBAL_FULL_COMPARE_CONFIG;
-        this.partialCompareConfig =
-                GLOBAL_PARTIAL_COMPARE_CONFIG == null
-                        ? PartialCompareConfig.createDefault().build()
-                        : GLOBAL_PARTIAL_COMPARE_CONFIG;
+    static FullCompareConfig getGlobalFullCompareConfig(){
+        return  GLOBAL_FULL_COMPARE_CONFIG == null
+                ? new FullCompareConfig()
+                : GLOBAL_FULL_COMPARE_CONFIG;
+    }
+    static PartialCompareConfig getGlobalPartialCompareConfig(){
+        return GLOBAL_PARTIAL_COMPARE_CONFIG == null
+                ? new PartialCompareConfig()
+                : GLOBAL_PARTIAL_COMPARE_CONFIG;
     }
 
     public static ActorConfigurer compare(Object rootActor) {
@@ -60,8 +59,8 @@ public class CompareTemplate implements
     }
 
     @Override
-    public AdditionalActorConfigurer with(Object actor) {
-        actors.add(actor);
+    public ActorBridge with(Object actor) {
+        this.compare = actor;
         return this;
     }
 
@@ -72,85 +71,68 @@ public class CompareTemplate implements
 
     @Override
     public FullComparePropertyConfigurer ignore(Types.Supplier<?> getter) {
-        String propertyName = MethodNameUtil.propertyNameOf(getter);
-        Assertions.assertTrue(properties.contains(propertyName), "No Property known named: " + propertyName + " that could be ignored.");
-        properties.remove(propertyName);
-        return this;
+        return ignore(MethodNameUtil.propertyNameOf(getter));
     }
 
     @Override
     public FullComparePropertyConfigurer ignore(String propertyName) {
-        Assertions.assertTrue(properties.contains(propertyName), "No Property known named: " + propertyName + " that could be ignored.");
-        properties.remove(propertyName);
+        fullCompare=true;
+        fullCompareConfig.getIgnoredProperties().add(propertyName);
         return this;
     }
 
-    @Override
-    public FullComparePropertyConfigurer allOf(Object o) {
-        fullCompare = true;
-        Assertions.assertNotNull(o);
-        Assertions.assertTrue(actors.contains(o) || rootActor.equals(o));
-        properties.addAll(ReflectionUtils.getProperties(o.getClass()));
-        return this;
-    }
 
+    /**
+     * Globally ignored Properties are not included.
+     * If you want to add some of them anyways, use {@link this#configureFullCompare(FullCompareConfigConfigurer)}
+     * and remove them from {@link FullCompareConfig#ignoredProperties} for this specific CompareTemplate.
+     * @return
+     */
     @Override
     public FullComparePropertyConfigurer all() {
         fullCompare = true;
-        properties.addAll(ReflectionUtils.getProperties(rootActor.getClass()));
         return this;
     }
 
     @Override
     public PartialAdditionalPropertyConfigurer include(Types.Supplier<?> getter) {
-        fullCompare = false;
-        include(MethodNameUtil.propertyNameOf(getter));
-        return this;
+        return include(MethodNameUtil.propertyNameOf(getter));
     }
 
     @Override
     public PartialAdditionalPropertyConfigurer include(String propertyName) {
         fullCompare = false;
-        properties.add(propertyName);
+        partialCompareConfig.getIncludedProperties().add(propertyName);
         return this;
     }
 
     @Override
     public CompareOptionsConfigurer fullDiff(boolean value) {
-        fullCompareConfig.setFullDiff(value);
-        partialCompareConfig.setFullDiff(value);
+        fullCompareConfig.setMinimalDiff(value);
+        partialCompareConfig.setMinimalDiff(value);
         return this;
     }
 
     @Override
-    public FullCompareOptionsConfigurer configureFullCompare(ConfigConfigurer<FullCompareConfig> configurer) {
+    public FullCompareOptionsConfigurer configureFullCompare(FullCompareConfigConfigurer configurer) {
         configurer.configure(fullCompareConfig);
         return this;
     }
 
     @Override
-    public PartialCompareOptionsConfigurer configurePartialCompare(ConfigConfigurer<PartialCompareConfig> configurer) {
+    public PartialCompareOptionsConfigurer configurePartial(PartialCompareConfigConfigurer configurer) {
         configurer.configure(partialCompareConfig);
         return this;
     }
 
-
     private boolean performEqualCheck() {
-        RapidReflectionEquals equalMatcher = new RapidReflectionEquals(rootActor,
-                selectConfig().convert(rootActor));
-        boolean finalEqual = true;
-        for (Object actor : actors) {
-            boolean equal = equalMatcher.matches(actor);
-            if (!equal) {
-                finalEqual = false;
-            }
-//            Assertions.assertTrue(equal,"Objects differ. See last log above for diff or enable logging for: io.github.vincemann.springrapid.coretest");
-        }
-        this.diff = equalMatcher.getDiff();
-        return finalEqual;
+        RapidReflectionEquals equalMatcher = new RapidReflectionEquals(root, selectConfig());
+        equalMatcher.matches(compare);
+        this.diff=equalMatcher.getDiff();
+        return diff.isEmpty();
     }
 
-    private AbstractCompareConfig selectConfig() {
+    private RapidEqualsBuilder.CompareConfig selectConfig() {
         if (fullCompare == null) {
             throw new IllegalArgumentException("No CompareMode selected");
         }
@@ -181,7 +163,7 @@ public class CompareTemplate implements
 
     @Override
     public boolean isEqual() {
-        return diff.isEmpty();
+        return performEqualCheck();
     }
 
     @Override
@@ -190,63 +172,112 @@ public class CompareTemplate implements
     }
 
     @Override
-    public FullCompareOptionsConfigurer ignoreNull(boolean value) {
-        this.fullCompareConfig.setIgnoreNull(value);
+    public FullCompareOptionsConfigurer ignoreNull(boolean v) {
+        this.fullCompareConfig.ignoreNull = v;
         return this;
     }
 
     @Override
-    public FullCompareOptionsConfigurer ignoreNotFound(boolean value) {
-        this.fullCompareConfig.setIgnoreNotFound(value);
+    public FullCompareOptionsConfigurer ignoreNotFound(boolean v) {
+        this.fullCompareConfig.ignoreNotFound = v;
         return this;
     }
 
 
     @Getter
     @Setter
+    @ToString(callSuper = true)
     public static class FullCompareConfig extends RapidEqualsBuilder.CompareConfig implements CompareTemplateConfig {
-        //default config
-        private Boolean ignoreNull = Boolean.FALSE;
-        private Boolean ignoreNotFound = Boolean.FALSE;
-        private Boolean useNullForNotFound = Boolean.FALSE;
-        private Set<String> ignoredProperties = new HashSet<>();
 
 
-        @Builder(builderMethodName = "createDefault")
-        public FullCompareConfig(Class<?> reflectUpToClass, Boolean ignoreNull, Boolean ignoreNotFound, Boolean useNullForNotFound, Set<String> ignoredProperties) {
-            super(reflectUpToClass);
-            if (ignoreNull!=null)
-                this.ignoreNull = ignoreNull;
-            if (ignoreNotFound!=null)
-                this.ignoreNotFound = ignoreNotFound;
-            if (useNullForNotFound!=null)
-                this.useNullForNotFound = useNullForNotFound;
-            if (ignoredProperties!=null)
-                this.ignoredProperties = ignoredProperties;
+        public static Builder modDefault(){
+            return new Builder();
+        }
+
+        public static Builder modGlobal(){
+            return new Builder(getGlobalFullCompareConfig());
         }
 
 
-
-        @Override
-        protected RapidEqualsBuilder.CompareConfig convert(Object rootActor) {
-            RapidEqualsBuilder.CompareConfig result = super.convert(rootActor);
-            result.setIgnoredProperties(getIgnoredProperties());
-            result.setIgnoreNotFound(ignoreNotFound);
-            result.setUseNullForNotFound(useNullForNotFound);
-            result.setIgnoreNull(ignoreNull);
-            return result;
+        public boolean isIgnoreNull() {
+            return ignoreNull;
         }
+
+        public boolean isIgnoreNotFound() {
+            return ignoreNotFound;
+        }
+
+        public boolean isUseNullForNotFound() {
+            return useNullForNotFound;
+        }
+
+        public Set<String> getIgnoredProperties() {
+            return ignoredProperties;
+        }
+
+        public void setIgnoreNull(boolean ignoreNull) {
+            this.ignoreNull = ignoreNull;
+        }
+
+        public void setIgnoreNotFound(boolean ignoreNotFound) {
+            this.ignoreNotFound = ignoreNotFound;
+        }
+
+        public void setUseNullForNotFound(boolean useNullForNotFound) {
+            this.useNullForNotFound = useNullForNotFound;
+        }
+
+        public void setIgnoredProperties(Set<String> ignoredProperties) {
+            this.ignoredProperties = ignoredProperties;
+        }
+
+
+        public static class Builder extends CompareTemplateConfigBuilder<Builder,FullCompareConfig>{
+
+            public Builder() {
+                super(new FullCompareConfig());
+            }
+
+            public Builder(FullCompareConfig config) {
+                super(config);
+            }
+
+            public Builder ignoreNull(boolean v){
+                getConfig().setIgnoreNull(v);
+                return this;
+            }
+
+            public Builder ignoreNotFound(boolean v){
+                getConfig().setIgnoreNotFound(v);
+                return this;
+            }
+
+            public Builder useNullForNotFound(boolean v){
+                getConfig().setUseNullForNotFound(v);
+                return this;
+            }
+
+            public Builder ignoredProperties(Set<String> ignored) {
+                getConfig().setIgnoredProperties(ignored);
+                return this;
+            }
+
+        }
+
 
     }
 
-
+    @ToString(callSuper = true)
     public static class PartialCompareConfig extends RapidEqualsBuilder.CompareConfig implements CompareTemplateConfig{
         //default config
         private Set<String> includedProperties = new HashSet<>();
 
-        public static PartialCompareConfig builder(){
-            //creates default config
-            return new PartialCompareConfig();
+        public static Builder modDefault(){
+            return new Builder();
+        }
+
+        public static Builder modGlobal(){
+            return new Builder(getGlobalPartialCompareConfig());
         }
 
         public void setIncludedProperties(Set<String> includedProperties) {
@@ -257,24 +288,24 @@ public class CompareTemplate implements
             return includedProperties;
         }
 
-        public Class<?> getReflectUpToClass() {
-            return reflectUpToClass;
-        }
-
-        public boolean isFullDiff() {
-            return fullDiff;
-        }
-
-
         @Override
-        public void init(Object rootActor) {
+        public void init(Object rootActor,Object compareActor) {
             Set<String> ignored = ReflectionUtils.getProperties(rootActor.getClass());
             ignored.removeAll(Sets.newHashSet(includedProperties));
-            setIgnoredProperties(ignored);
+            ignoredProperties = ignored;
         }
 
-        public static class PartialCompareConfigBuilder extends CompareTemplateConfigBuilder<PartialCompareConfigBuilder,PartialCompareConfig>{
-            public PartialCompareConfigBuilder includedProperties(Set<String> properties){
+        public static class Builder extends CompareTemplateConfigBuilder<Builder,PartialCompareConfig>{
+
+            public Builder() {
+                super(new PartialCompareConfig());
+            }
+
+            public Builder(PartialCompareConfig config) {
+                super(config);
+            }
+
+            public Builder includedProperties(Set<String> properties){
                 getConfig().setIncludedProperties(properties);
                 return this;
             }
@@ -284,21 +315,22 @@ public class CompareTemplate implements
     }
 
     public static interface CompareTemplateConfig{
-        public void init(Object rootActor);
-
-        public Class<?> getReflectUpToClass();
-        public boolean isFullDiff();
 
         @Getter
-        public static class CompareTemplateConfigBuilder<T extends CompareTemplateConfigBuilder, C extends RapidEqualsBuilder.CompareConfig> {
+        public static abstract class CompareTemplateConfigBuilder<T extends CompareTemplateConfigBuilder, C extends RapidEqualsBuilder.CompareConfig> {
             private C config;
+
+            public CompareTemplateConfigBuilder(C config) {
+                this.config = config;
+            }
+
             public T reflectUpToClass(Class<?> value){
-                config.setReflectUpToClass(value);
+                config.reflectUpToClass= value;
                 return (T) this;
             }
 
             public T fullDiff(boolean value){
-                config.setFullDiff(value);
+                config.minimalDiff = value;
                 return (T) this;
             }
 

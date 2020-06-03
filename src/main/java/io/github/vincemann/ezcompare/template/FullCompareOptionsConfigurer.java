@@ -3,10 +3,12 @@ package io.github.vincemann.ezcompare.template;
 public interface FullCompareOptionsConfigurer
         extends CompareOptionsConfigurer{
 
+    interface FullCompareConfigConfigurer{
+        public void configure(CompareTemplate.FullCompareConfig config);
+    }
+
     public FullCompareOptionsConfigurer ignoreNull(boolean value);
     public FullCompareOptionsConfigurer ignoreNotFound(boolean value);
-
-    //use full name and dont detect arg type for selection of method with same name, bc it wont work for lambdas
-    public FullCompareOptionsConfigurer configureFullCompare(ConfigConfigurer<CompareTemplate.FullCompareConfig> configurer);
+    public FullCompareOptionsConfigurer configureFullCompare(FullCompareConfigConfigurer configurer);
 
 }

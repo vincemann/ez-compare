@@ -49,12 +49,14 @@ import static io.github.vincemann.ezcompare.util.MethodNameUtil.propertyNamesOf;
 @Getter
 @Setter
 public class Comparison implements
-        ActorConfigurer, ActorBridge,
+        ActorConfigurer, SelectedActorConfigurer,
         SelectiveOptionsConfigurer, FullCompareOptionsConfigurer, PartialCompareOptionsConfigurer, CompareOptionsConfigurer,
         PropertyBridge,
-        SelectivePropertiesConfigurer, FullComparePropertyConfigurer, PartialPropertyConfigurer, PartialAdditionalPropertyConfigurer,
+        SelectivePropertiesConfigurer, FullComparePropertyConfigurer, PartialComparePropertyConfigurer, SelectedPartialComparePropertyConfigurer,
         OperationConfigurer,
-        ResultProvider {
+        ResultProvider,
+        ContinueBridge
+{
     private final static Logger log = Logger.getLogger(Comparison.class.getName());
 
     /**
@@ -141,7 +143,7 @@ public class Comparison implements
     }
 
     @Override
-    public ActorBridge with(Object actor) {
+    public SelectedActorConfigurer with(Object actor) {
         this.compare = actor;
         return this;
     }
@@ -175,13 +177,14 @@ public class Comparison implements
         return this;
     }
 
+
     @Override
-    public PartialAdditionalPropertyConfigurer include(Types.Supplier<?>... getters) {
+    public SelectedPartialComparePropertyConfigurer include(Types.Supplier<?>... getters) {
         return include(propertyNamesOf(getters));
     }
 
     @Override
-    public PartialAdditionalPropertyConfigurer include(String... propertyName) {
+    public SelectedPartialComparePropertyConfigurer include(String... propertyName) {
         fullCompare = false;
         partialCompareConfig.getIncludedProperties().addAll(Sets.newHashSet(propertyName));
         return this;
@@ -224,6 +227,7 @@ public class Comparison implements
         }
     }
 
+
     @Override
     public ResultProvider assertEqual() {
         Assertions.assertTrue(performEqualCheck());
@@ -265,7 +269,7 @@ public class Comparison implements
     }
 
     @Override
-    public ActorBridge and() {
+    public SelectedActorConfigurer and() {
         return Comparison.compare(root).with(compare);
     }
 

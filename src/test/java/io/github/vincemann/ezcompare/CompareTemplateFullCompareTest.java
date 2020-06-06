@@ -1,5 +1,6 @@
 package io.github.vincemann.ezcompare;
 
+import io.github.vincemann.ezcompare.configurer.ResultConfigurer;
 import io.github.vincemann.ezcompare.domain.IdentifiableEntityImpl;
 import io.github.vincemann.ezcompare.util.MethodNameUtil;
 import lombok.AllArgsConstructor;
@@ -189,18 +190,18 @@ class CompareTemplateFullCompareTest {
         parent.setId(42L);
 
 
-        ResultProvider resultProvider = compare(child).with(parent)
+        ResultConfigurer resultConfigurer = compare(child).with(parent)
                 .configureFullCompare(config -> config.setUseNullForNotFound(true))
                 .properties()
                 .all()
                 .ignore(child::getParent)
                 .assertNotEqual();
 
-        Assertions.assertTrue(resultProvider.getDiff().isDifferent());
-        Assertions.assertFalse(resultProvider.isEqual());
+        Assertions.assertTrue(resultConfigurer.getDiff().isDifferent());
+        Assertions.assertFalse(resultConfigurer.isEqual());
         Assertions.assertEquals(
                 MethodNameUtil.propertyNameOf(child::getAddress),
-                resultProvider.getDiff().getFirstNode().getProperty()
+                resultConfigurer.getDiff().getFirstNode().getProperty()
         );
     }
 

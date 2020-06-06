@@ -2,6 +2,18 @@ package io.github.vincemann.ezcompare;
 
 import com.github.hervian.reflection.Types;
 import com.google.common.collect.Sets;
+import io.github.vincemann.ezcompare.configurer.ResultConfigurer;
+import io.github.vincemann.ezcompare.configurer.actor.ActorConfigurer;
+import io.github.vincemann.ezcompare.configurer.operation.OperationConfigurer;
+import io.github.vincemann.ezcompare.configurer.options.CompareOptionsConfigurer;
+import io.github.vincemann.ezcompare.configurer.options.FullCompareOptionsConfigurer;
+import io.github.vincemann.ezcompare.configurer.options.PartialCompareOptionsConfigurer;
+import io.github.vincemann.ezcompare.configurer.options.SelectiveOptionsConfigurer;
+import io.github.vincemann.ezcompare.configurer.properties.FullComparePropertyConfigurer;
+import io.github.vincemann.ezcompare.configurer.properties.PartialAdditionalPropertyConfigurer;
+import io.github.vincemann.ezcompare.configurer.properties.SelectivePropertiesConfigurer;
+import io.github.vincemann.ezcompare.menu.ActorBridge;
+import io.github.vincemann.ezcompare.menu.ComparisonMenu;
 import io.github.vincemann.ezcompare.util.BeanUtils;
 import io.github.vincemann.ezcompare.util.ReflectionUtils;
 import lombok.*;
@@ -10,10 +22,8 @@ import org.junit.jupiter.api.Assertions;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import static io.github.vincemann.ezcompare.util.MethodNameUtil.propertyNameOf;
-import static io.github.vincemann.ezcompare.util.MethodNameUtil.propertyNamesOf;
 
 
 /**
@@ -48,13 +58,7 @@ import static io.github.vincemann.ezcompare.util.MethodNameUtil.propertyNamesOf;
  */
 @Getter
 @Setter
-public class Comparison implements
-        ActorConfigurer, ActorBridge,
-        SelectiveOptionsConfigurer, FullCompareOptionsConfigurer, PartialCompareOptionsConfigurer, CompareOptionsConfigurer,
-        PropertyBridge,
-        SelectivePropertiesConfigurer, FullComparePropertyConfigurer, PartialPropertyConfigurer, PartialAdditionalPropertyConfigurer,
-        OperationConfigurer,
-        ResultProvider {
+public class Comparison implements ComparisonMenu<ActorConfigurer, SelectiveOptionsConfigurer,SelectivePropertiesConfigurer,OperationConfigurer, ResultConfigurer, {
     private final static Logger log = Logger.getLogger(Comparison.class.getName());
 
     /**
@@ -123,6 +127,16 @@ public class Comparison implements
 
     public static void setFullCompareGlobalConfig(FullCompareConfig fullCompareGlobalConfig) {
         FULL_COMPARE_GLOBAL_CONFIG = fullCompareGlobalConfig;
+    }
+
+    @Override
+    public ActorConfigurer actors() {
+        return this;
+    }
+
+    @Override
+    public OperationConfigurer operation() {
+        return this;
     }
 
     /**
@@ -206,7 +220,7 @@ public class Comparison implements
         return this;
     }
 
-    private boolean performEqualCheck() {
+    protected boolean performEqualCheck() {
         RapidReflectionEquals equalMatcher = new RapidReflectionEquals(root, selectConfig());
         equalMatcher.matches(compare);
         this.diff = equalMatcher.getDiff();
@@ -268,6 +282,11 @@ public class Comparison implements
     public ActorBridge and() {
         return Comparison.compare(root).with(compare);
     }
+
+
+
+    //CONFIG
+
 
     public interface CompareTemplateConfig {
 

@@ -163,8 +163,6 @@ public class ShowCaseTests {
                 .ignoreNotFound(true)
                 .ignoreNull(true);
 
-
-
         //only properties that are not null and present in both compare objects are relevant
         compare(p).with(dto)
                 .properties()

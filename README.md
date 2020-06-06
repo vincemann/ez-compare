@@ -19,6 +19,7 @@ but instead iterates over the **selected** instance variables of both objects an
 
 ## Include  
 ### Maven  
+```code
 <repositories>  
         <repository>  
             <id>jitpack.io</id>  
@@ -31,9 +32,11 @@ but instead iterates over the **selected** instance variables of both objects an
     <artifactId>ez-compare</artifactId>  
     <version>1.0.0</version>  
 </dependency>  
+```  
  
 ### Gradle  
    
+```code
 repositories {  
     jcenter()  
     maven { url "https://jitpack.io" }  
@@ -41,6 +44,7 @@ repositories {
 dependencies {  
      implementation 'com.github.jitpack:gradle-simple:1.0'  
 }  
+```
  
 ## Simple Example    
   

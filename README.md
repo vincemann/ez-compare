@@ -1,4 +1,4 @@
-# ez-compare
+# Ez-Compare
 Simple refelction-based **Comparisson-Tool** for comparing two Objects: "Root" & "Compare".  
 Highly **configurable**, yet very **simple** to use.  
 Human readable **fluent-api-style**.  
@@ -6,7 +6,7 @@ Does **not** perform **deep** compare (except for arrays),
 but instead iterates over the **selected** instance variables of both objects and compares them via equal-method.  
 -> reflection depth is 1.  
   
-## features  
+## Features  
 * Can Compare Objects of **different Types**  
 * Only uses Root's Properties/ Fields for Comparisson  
 * Can ignore missing Fields of Compare  
@@ -16,8 +16,33 @@ but instead iterates over the **selected** instance variables of both objects an
 * **Partial-Compare**-Mode (explicitly include Properties of Root and only compare theses)  
 * **Globally** & Locally configure **Compare-Options**  
 * ... see Java Docs for more...  
+
+## Include  
+### Maven  
+<repositories>  
+        <repository>  
+            <id>jitpack.io</id>  
+            <url>https://jitpack.io</url>  
+        </repository>  
+</repositories>  
   
-## simple example    
+<dependency>  
+    <groupId>io.github.vincemann</groupId>  
+    <artifactId>ez-compare</artifactId>  
+    <version>1.0.0</version>  
+</dependency>  
+ 
+### Gradle  
+   
+repositories {  
+    jcenter()  
+    maven { url "https://jitpack.io" }  
+}  
+dependencies {  
+     implementation 'com.github.jitpack:gradle-simple:1.0'  
+}  
+ 
+## Simple Example    
   
   ```java
     @Test
@@ -53,7 +78,7 @@ but instead iterates over the **selected** instance variables of both objects an
     }
   ```
   
-## advanced example  
+## Advanced Example  
   
 ```java
     @Test
@@ -92,4 +117,4 @@ but instead iterates over the **selected** instance variables of both objects an
 
 ```
   
-## view more show cases in src/test/ShowCaseTests   
+### Check out more showcases in src/test/ShowCaseTests   

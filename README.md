@@ -1,21 +1,52 @@
-# ez-compare
-Simple refelction-based fluent-api-style Comparisson-Tool for comparing two Objects: "Root" & "Compare".  
-Highly configurable, yet very simple to use.  
-Human readable fluent-api-style.  
-Ships preconfigured in strict Mode.  
+# Ez-Compare
+Simple refelction-based **Comparisson-Tool** for comparing two Objects: "Root" & "Compare".  
+Highly **configurable**, yet very **simple** to use.  
+Human readable **fluent-api-style**.  
+Does **not** perform **deep** compare (except for arrays),  
+but instead iterates over the **selected** instance variables of both objects and compares them via equal-method.  
+-> reflection depth is 1.  
   
-## features  
-* Can Compare Objects of different Types  
+## Features  
+* Can Compare Objects of **different Types**  
 * Only uses Root's Properties/ Fields for Comparisson  
 * Can ignore missing Fields of Compare  
-* Evaluates and returns Differences  
-* Can be configured to stop after finding first Difference (Performence-Mode)  
-* Full-Compare-Mode (use all Properties of Root and ignore some if needed)  
-* Partial-Compare-Mode (explicitly include Properties of Root and only compare theses)  
-* Globally & Locally configure Compare-Options  
+* Evaluates and **returns Differences**  
+* Can be configured to stop after finding first Difference (**Performence-Mode**)  
+* **Full-Compare**-Mode (use all Properties of Root and ignore some if needed)  
+* **Partial-Compare**-Mode (explicitly include Properties of Root and only compare theses)  
+* **Globally** & Locally configure **Compare-Options**  
 * ... see Java Docs for more...  
+
+## Include  
+### Maven  
+```code
+<repositories>  
+    <repository>  
+        <id>jitpack.io</id>  
+        <url>https://jitpack.io</url>  
+    </repository>  
+</repositories>  
   
-## simple example    
+<dependency>  
+    <groupId>io.github.vincemann</groupId>  
+    <artifactId>ez-compare</artifactId>  
+    <version>1.0.0</version>  
+</dependency>  
+```  
+ 
+### Gradle  
+   
+```code
+repositories {  
+    jcenter()  
+    maven { url "https://jitpack.io" }  
+}  
+dependencies {  
+     implementation 'com.github.vincemann:ez-compare:1.0.0'  
+}  
+```
+ 
+## Simple Example    
   
   ```java
     @Test
@@ -51,7 +82,7 @@ Ships preconfigured in strict Mode.
     }
   ```
   
-## advanced example  
+## Advanced Example  
   
 ```java
     @Test
@@ -90,4 +121,4 @@ Ships preconfigured in strict Mode.
 
 ```
   
-## view more show cases in src/test/ShowCaseTests   
+### Check out more showcases in src/test/ShowCaseTests   

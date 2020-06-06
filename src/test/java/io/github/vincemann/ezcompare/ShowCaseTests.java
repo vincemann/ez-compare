@@ -57,6 +57,7 @@ public class ShowCaseTests {
                 //by default uses only properties of left side object
                 .properties()
                 .all()
+                .operation()
                 .assertEqual();
 
         //normal way
@@ -70,6 +71,7 @@ public class ShowCaseTests {
                 .properties()
                 .all()
                 .ignore(p::getCreatorIp)
+                .operation()
                 .assertEqual();
     }
 
@@ -99,9 +101,11 @@ public class ShowCaseTests {
 
         //ez compare way
         compare(dto).with(p)
+                .options()
                 .ignoreNull(true)
                 .properties()
                 .all()
+                .operation()
                 .assertEqual();
     }
 
@@ -125,13 +129,16 @@ public class ShowCaseTests {
 
         //only properties that are not null and present in both compare objects are relevant
         RapidEqualsBuilder.Diff diff = compare(p).with(dto)
+                .options()
                 .ignoreNotFound(true)       //creatorIp will be ignored
                 .ignoreNull(true)           //tel       will be ignored
                 .properties()
                 .all()
                 //we dont care about name neither
                 .ignore(p::getName)
+                .operation()
                 .assertNotEqual()
+                .result()
                 .getDiff();
 
         //just to showcase it worked the way it is expected
@@ -167,6 +174,7 @@ public class ShowCaseTests {
         compare(p).with(dto)
                 .properties()
                 .all()
+                .operation()
                 .assertEqual();
     }
 
@@ -198,11 +206,13 @@ public class ShowCaseTests {
                 .properties()
                 .include(p::getName,
                          p::getAddress)
+                .operation()
                 .assertNotEqual()
                 .and()
                 .properties()
                 .include(p::getAge,
                          p::getTel)
+                .operation()
                 .assertEqual();
     }
 }

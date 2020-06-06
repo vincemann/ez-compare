@@ -4,26 +4,32 @@ import com.github.hervian.reflection.Types;
 import com.google.common.collect.Sets;
 import io.github.vincemann.ezcompare.configurer.ResultConfigurer;
 import io.github.vincemann.ezcompare.configurer.actor.ActorConfigurer;
+import io.github.vincemann.ezcompare.configurer.actor.SelectedActorConfigurer;
 import io.github.vincemann.ezcompare.configurer.operation.OperationConfigurer;
+import io.github.vincemann.ezcompare.configurer.operation.SelectedOperationConfigurer;
 import io.github.vincemann.ezcompare.configurer.options.CompareOptionsConfigurer;
 import io.github.vincemann.ezcompare.configurer.options.FullCompareOptionsConfigurer;
 import io.github.vincemann.ezcompare.configurer.options.PartialCompareOptionsConfigurer;
 import io.github.vincemann.ezcompare.configurer.options.SelectiveOptionsConfigurer;
 import io.github.vincemann.ezcompare.configurer.properties.FullComparePropertyConfigurer;
-import io.github.vincemann.ezcompare.configurer.properties.PartialAdditionalPropertyConfigurer;
+import io.github.vincemann.ezcompare.configurer.properties.PartialComparePropertyConfigurer;
+import io.github.vincemann.ezcompare.configurer.properties.SelectedPartialComparePropertyConfigurer;
 import io.github.vincemann.ezcompare.configurer.properties.SelectivePropertiesConfigurer;
-import io.github.vincemann.ezcompare.menu.ActorBridge;
-import io.github.vincemann.ezcompare.menu.ComparisonMenu;
+import io.github.vincemann.ezcompare.bridges.*;
 import io.github.vincemann.ezcompare.util.BeanUtils;
 import io.github.vincemann.ezcompare.util.ReflectionUtils;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import static io.github.vincemann.ezcompare.util.MethodNameUtil.propertyNameOf;
+import static io.github.vincemann.ezcompare.util.MethodNameUtil.propertyNamesOf;
 
 
 /**
@@ -58,7 +64,16 @@ import static io.github.vincemann.ezcompare.util.MethodNameUtil.propertyNameOf;
  */
 @Getter
 @Setter
-public class Comparison implements ComparisonMenu<ActorConfigurer, SelectiveOptionsConfigurer,SelectivePropertiesConfigurer,OperationConfigurer, ResultConfigurer, {
+public class Comparison implements
+        //bridges
+        ActorBridge<ActorConfigurer>, OptionsBridge<SelectiveOptionsConfigurer>, PropertyBridge<SelectivePropertiesConfigurer>, OperationBridge<OperationConfigurer>,ResultBridge<ResultConfigurer>,ContinueBridge<SelectedActorConfigurer>,
+        //configurers
+        ActorConfigurer, SelectedActorConfigurer,
+        SelectiveOptionsConfigurer,FullCompareOptionsConfigurer, PartialCompareOptionsConfigurer,
+        SelectivePropertiesConfigurer, FullComparePropertyConfigurer, PartialComparePropertyConfigurer, SelectedPartialComparePropertyConfigurer,
+        OperationConfigurer, SelectedOperationConfigurer,
+        ResultConfigurer
+{
     private final static Logger log = Logger.getLogger(Comparison.class.getName());
 
     /**
@@ -70,7 +85,6 @@ public class Comparison implements ComparisonMenu<ActorConfigurer, SelectiveOpti
     private static PartialCompareConfig PARTIAL_COMPARE_GLOBAL_CONFIG;
     private static FullCompareConfig FULL_COMPARE_GLOBAL_CONFIG;
 
-
     /**
      * Local Config within scope of one Compare Process aka one {@link Comparison}.
      */
@@ -79,9 +93,11 @@ public class Comparison implements ComparisonMenu<ActorConfigurer, SelectiveOpti
 
     private Object root;
     private Object compare = new ArrayList<>();
+    private Boolean fullCompare = null;
 
     private RapidEqualsBuilder.Diff diff;
-    private Boolean fullCompare = null;
+
+
 
     protected Comparison(Object root) {
         this.root = root;
@@ -130,9 +146,21 @@ public class Comparison implements ComparisonMenu<ActorConfigurer, SelectiveOpti
     }
 
     @Override
+    public SelectiveOptionsConfigurer options() {
+        return this;
+    }
+
+    @Override
+    public ResultConfigurer result() {
+        return this;
+    }
+
+    @Override
     public ActorConfigurer actors() {
         return this;
     }
+
+
 
     @Override
     public OperationConfigurer operation() {
@@ -155,7 +183,7 @@ public class Comparison implements ComparisonMenu<ActorConfigurer, SelectiveOpti
     }
 
     @Override
-    public ActorBridge with(Object actor) {
+    public SelectedActorConfigurer with(Object actor) {
         this.compare = actor;
         return this;
     }
@@ -190,12 +218,12 @@ public class Comparison implements ComparisonMenu<ActorConfigurer, SelectiveOpti
     }
 
     @Override
-    public PartialAdditionalPropertyConfigurer include(Types.Supplier<?>... getters) {
+    public SelectedPartialComparePropertyConfigurer include(Types.Supplier<?>... getters) {
         return include(propertyNamesOf(getters));
     }
 
     @Override
-    public PartialAdditionalPropertyConfigurer include(String... propertyName) {
+    public SelectedPartialComparePropertyConfigurer include(String... propertyName) {
         fullCompare = false;
         partialCompareConfig.getIncludedProperties().addAll(Sets.newHashSet(propertyName));
         return this;
@@ -239,26 +267,26 @@ public class Comparison implements ComparisonMenu<ActorConfigurer, SelectiveOpti
     }
 
     @Override
-    public ResultProvider assertEqual() {
+    public SelectedOperationConfigurer assertEqual() {
         Assertions.assertTrue(performEqualCheck());
         return this;
     }
 
     @Override
-    public ResultProvider assertNotEqual() {
+    public SelectedOperationConfigurer assertNotEqual() {
         Assertions.assertFalse(performEqualCheck());
         return this;
     }
 
     @Override
-    public ResultProvider go() {
+    public SelectedOperationConfigurer go() {
         performEqualCheck();
         return this;
     }
 
     @Override
     public boolean isEqual() {
-        return performEqualCheck();
+        return diff.isEmpty();
     }
 
     @Override
@@ -279,11 +307,9 @@ public class Comparison implements ComparisonMenu<ActorConfigurer, SelectiveOpti
     }
 
     @Override
-    public ActorBridge and() {
+    public SelectedActorConfigurer and() {
         return Comparison.compare(root).with(compare);
     }
-
-
 
     //CONFIG
 

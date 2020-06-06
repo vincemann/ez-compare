@@ -267,7 +267,9 @@ class CompareTemplatePartialCompareTest {
                 .with(compare)
                 .properties()
                 .include(getter)
+                .operation()
                 .go()
+                .result()
                 .isEqual();
     }
 }

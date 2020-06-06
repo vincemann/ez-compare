@@ -1,0 +1,15 @@
+io/github/vincemann/ezcompare/configurer/properties/SelectivePropertiesConfigurer.class
+io/github/vincemann/ezcompare/configurer/operation/OperationConfigurer.class
+io/github/vincemann/ezcompare/configurer/properties/SelectedPartialComparePropertyConfigurer.class
+io/github/vincemann/ezcompare/configurer/options/PartialCompareOptionsConfigurer$PartialCompareConfigConfigurer.class
+io/github/vincemann/ezcompare/configurer/options/FullCompareOptionsConfigurer$FullCompareConfigConfigurer.class
+io/github/vincemann/ezcompare/configurer/ResultConfigurer.class
+io/github/vincemann/ezcompare/configurer/options/PartialCompareOptionsConfigurer.class
+io/github/vincemann/ezcompare/configurer/properties/PartialComparePropertyConfigurer.class
+io/github/vincemann/ezcompare/configurer/options/FullCompareOptionsConfigurer.class
+io/github/vincemann/ezcompare/configurer/options/CompareOptionsConfigurer.class
+io/github/vincemann/ezcompare/configurer/operation/SelectedOperationConfigurer.class
+io/github/vincemann/ezcompare/configurer/properties/FullComparePropertyConfigurer.class
+io/github/vincemann/ezcompare/configurer/actor/ActorConfigurer.class
+io/github/vincemann/ezcompare/configurer/options/SelectiveOptionsConfigurer.class
+io/github/vincemann/ezcompare/configurer/actor/SelectedActorConfigurer.class

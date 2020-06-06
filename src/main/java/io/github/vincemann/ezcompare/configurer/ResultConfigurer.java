@@ -1,13 +1,13 @@
 package io.github.vincemann.ezcompare.configurer;
 
 import io.github.vincemann.ezcompare.RapidEqualsBuilder;
-import io.github.vincemann.ezcompare.configurer.actor.ActorConfigurer;
-import io.github.vincemann.ezcompare.menu.RestartBridge;
+import io.github.vincemann.ezcompare.configurer.actor.SelectedActorConfigurer;
+import io.github.vincemann.ezcompare.bridges.ContinueBridge;
 
 
 public interface ResultConfigurer extends
         //menu options
-        RestartBridge<ActorConfigurer> {
+        ContinueBridge<SelectedActorConfigurer> {
         public RapidEqualsBuilder.Diff getDiff();
         public boolean isEqual();
 }

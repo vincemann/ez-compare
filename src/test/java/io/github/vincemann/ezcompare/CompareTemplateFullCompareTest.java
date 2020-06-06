@@ -97,8 +97,10 @@ class CompareTemplateFullCompareTest {
                 .ignore(child::getName)
                 .ignore(child::getAddress)
                 .ignore(child::getParent)
+                .operation()
                 //only id remains
                 .assertEqual()
+                .result()
                 .getDiff();
 
         Assertions.assertFalse(diff.isDifferent());
@@ -116,6 +118,7 @@ class CompareTemplateFullCompareTest {
         parent.setId(42L);
 
         RapidEqualsBuilder.Diff diff = compare(child).with(parent)
+                .options()
                 .ignoreNull(true)
                 .properties()
                 .all()
@@ -124,7 +127,9 @@ class CompareTemplateFullCompareTest {
 //                .ignore(child::getAddress)
 //                .ignore(child::getParent)
                 //only id remains
+                .operation()
                 .assertEqual()
+                .result()
                 .getDiff();
 
         Assertions.assertTrue(diff.isEmpty());
@@ -147,8 +152,10 @@ class CompareTemplateFullCompareTest {
 //                .ignore(child::getName)
                 .ignore(child::getAddress)
                 .ignore(child::getParent)
+                .operation()
                 //only id and name remains, name on root side is null + null is not ignored -> not equal
                 .assertNotEqual()
+                .result()
                 .getDiff();
 
         Assertions.assertEquals(
@@ -173,7 +180,9 @@ class CompareTemplateFullCompareTest {
                     .properties()
                     .all()
                     .ignore(child::getParent)
+                    .operation()
                     .assertNotEqual()
+                    .result()
                     .getDiff();
         });
     }
@@ -191,11 +200,14 @@ class CompareTemplateFullCompareTest {
 
 
         ResultConfigurer resultConfigurer = compare(child).with(parent)
+                .options()
                 .configureFullCompare(config -> config.setUseNullForNotFound(true))
                 .properties()
                 .all()
                 .ignore(child::getParent)
-                .assertNotEqual();
+                .operation()
+                .assertNotEqual()
+                .result();
 
         Assertions.assertTrue(resultConfigurer.getDiff().isDifferent());
         Assertions.assertFalse(resultConfigurer.isEqual());
@@ -219,11 +231,14 @@ class CompareTemplateFullCompareTest {
 
 
         boolean equal = compare(child).with(parent)
+                .options()
                 .configureFullCompare((config) -> config.setUseNullForNotFound(true))
                 .properties()
                 .all()
                 .ignore(child::getParent)
+                .operation()
                 .assertEqual()
+                .result()
                 .isEqual();
 
         Assertions.assertTrue(equal);
@@ -234,7 +249,9 @@ class CompareTemplateFullCompareTest {
                 .with(compare)
                 .properties()
                 .all()
+                .operation()
                 .go()
+                .result()
                 .isEqual();
     }
 
@@ -243,7 +260,9 @@ class CompareTemplateFullCompareTest {
                 .with(compare)
                 .properties()
                 .all()
+                .operation()
                 .go()
+                .result()
                 .getDiff();
     }
 

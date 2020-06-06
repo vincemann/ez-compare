@@ -21,10 +21,10 @@ but instead iterates over the **selected** instance variables of both objects an
 ### Maven  
 ```code
 <repositories>  
-        <repository>  
-            <id>jitpack.io</id>  
-            <url>https://jitpack.io</url>  
-        </repository>  
+    <repository>  
+        <id>jitpack.io</id>  
+        <url>https://jitpack.io</url>  
+    </repository>  
 </repositories>  
   
 <dependency>  
@@ -42,7 +42,7 @@ repositories {
     maven { url "https://jitpack.io" }  
 }  
 dependencies {  
-     implementation 'com.github.jitpack:gradle-simple:1.0'  
+     implementation 'com.github.vincemann:ez-compare:1.0.0'  
 }  
 ```
  

@@ -30,7 +30,7 @@ but instead iterates over the **selected** instance variables of both objects an
 <dependency>  
     <groupId>io.github.vincemann</groupId>  
     <artifactId>ez-compare</artifactId>  
-    <version>1.0.0</version>  
+    <version>1.1.0</version>  
 </dependency>  
 ```  
  
@@ -42,7 +42,7 @@ repositories {
     maven { url "https://jitpack.io" }  
 }  
 dependencies {  
-     implementation 'com.github.vincemann:ez-compare:1.0.0'  
+     implementation 'com.github.vincemann:ez-compare:1.1.0'  
 }  
 ```
  

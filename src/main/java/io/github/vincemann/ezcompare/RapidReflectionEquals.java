@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * Compares root (arg in: {@link this#matches(Object)}) with compare ({@link this#compare}).
  *
  * Only takes non static fields from root (expected) object class into consideration.
- * Does not perform deep compare -> only scans fields from root and performs equal on all of those (depth = 1).
+ * Does not perform deep compare -> only scans fields from root and calls equal on all of those (depth = 1).
  * Does not care about type -> only field names must match.
  *
  * @see Comparison for info about modes and config

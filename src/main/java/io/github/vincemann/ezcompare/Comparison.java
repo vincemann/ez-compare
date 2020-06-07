@@ -17,8 +17,8 @@ import static io.github.vincemann.ezcompare.util.MethodNameUtil.propertyNamesOf;
 
 
 /**
- * Fluent-API-like Wrapper for {@link RapidReflectionEquals}.
- * Represents ONE Comparison of two objects. Dont reuse!
+ * Fluent-API-style Wrapper for {@link RapidReflectionEquals}.
+ * One instance represents ONE Comparison of two objects. Dont reuse!
  * <p>
  * Supports two Comparison Modes:
  * <p>
@@ -31,19 +31,22 @@ import static io.github.vincemann.ezcompare.util.MethodNameUtil.propertyNamesOf;
  * <p>
  * <p>
  * Supports local and global Configuration for each mode:
- * FullCompare:     local:  {@link FullCompareOptionsConfigurer#configureFullCompare(FullCompareConfigConfigurer)}
- * global: {@link this#FULL_COMPARE_GLOBAL_CONFIG}
  *
+ * FullCompare:
+ * local:  {@link FullCompareOptionsConfigurer#configureFullCompare(FullCompareConfigConfigurer)}
+ * global: {@link this#FULL_COMPARE_GLOBAL_CONFIG}
  * @see FullCompareConfig
+ *
  * <p>
- * PartialCompare:  local:  {@link PartialCompareOptionsConfigurer#configurePartial(PartialCompareConfigConfigurer)}
+ * PartialCompare:
+ * local:  {@link PartialCompareOptionsConfigurer#configurePartialCompare(PartialCompareConfigConfigurer)}
  * global: {@link this#PARTIAL_COMPARE_GLOBAL_CONFIG}
  * @see PartialCompareConfig
  * <p>
  * <p>
  * Supports two Result Modes:
- * minimalDiff: stops searching for differences when first is found. (can be useful for performence reasons)
- * fullDiff:    always finds all differences.
+ * minimalDiff:          stops searching for differences when first is found. (can be useful for performence reasons)
+ * fullDiff(default):    always finds all differences.
  * @see RapidEqualsBuilder.Diff
  */
 @Getter
@@ -70,7 +73,7 @@ public class Comparison implements
 
 
     /**
-     * Local Config within scope of one Compare Process aka one {@link Comparison}.
+     * Local Config within scope of one Compare Process aka one {@link Comparison} instance.
      */
     private FullCompareConfig fullCompareConfig;
     private PartialCompareConfig partialCompareConfig;
@@ -204,19 +207,19 @@ public class Comparison implements
     }
 
     @Override
-    public PartialCompareOptionsConfigurer configurePartial(PartialCompareConfigConfigurer configurer) {
+    public PartialCompareOptionsConfigurer configurePartialCompare(PartialCompareConfigConfigurer configurer) {
         configurer.configure(partialCompareConfig);
         return this;
     }
 
-    private boolean performEqualCheck() {
+    protected boolean performEqualCheck() {
         RapidReflectionEquals equalMatcher = new RapidReflectionEquals(root, selectConfig());
         equalMatcher.matches(compare);
         this.diff = equalMatcher.getDiff();
         return diff.isEmpty();
     }
 
-    private RapidEqualsBuilder.CompareConfig selectConfig() {
+    protected RapidEqualsBuilder.CompareConfig selectConfig() {
         if (fullCompare == null) {
             throw new IllegalArgumentException("No CompareMode selected");
         }

@@ -5,5 +5,5 @@ public interface PartialCompareOptionsConfigurer extends CompareOptionsConfigure
     interface PartialCompareConfigConfigurer{
         public void configure(Comparison.PartialCompareConfig config);
     }
-    public PartialCompareOptionsConfigurer configurePartial(PartialCompareConfigConfigurer configurer);
+    public PartialCompareOptionsConfigurer configurePartialCompare(PartialCompareConfigConfigurer configurer);
 }

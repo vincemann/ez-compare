@@ -37,7 +37,7 @@ public class RapidEqualsBuilder {
      */
     @ToString
     public static class CompareConfig {
-        //                                      default config
+        //                                                 default config
         /**
          * Set to true, if root field should be ignored in comparison process, if its value in root is null.
          */
@@ -744,7 +744,7 @@ public class RapidEqualsBuilder {
         private Set<DiffNode> diffNodes = new HashSet<>();
         /**
          * If true, comparison process stops as soon as first difference was found.
-         * {@link this#diffNodes} will only contain first found differing property.
+         * Thus {@link this#diffNodes} will only contain first found differing property.
          */
         private Boolean minimal;
         private boolean different = false;
@@ -759,6 +759,9 @@ public class RapidEqualsBuilder {
             return diff;
         }
 
+        /**
+         * Useful in combination with {@link this#getMinimal()} mode
+         */
         public DiffNode getFirstNode(){
             Assertions.assertFalse(diffNodes.isEmpty());
             return diffNodes.stream().findFirst().get();

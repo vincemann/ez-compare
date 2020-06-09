@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e58ad0d4-e057-425d-93f7-a022bad3366a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ez-compare-1.0.0-SNAPSHOT.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +65,7 @@
       <recent name="$PROJECT_DIR$/src/test/java/io/github/vincemann/ezcompare" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.io.github.vincemann.ezcompare in ez-compare">
+  <component name="RunManager" selected="JUnit.com.github.vincemann.ezcompare in ez-compare">
     <configuration name="CompareTemplateFullCompareTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ez-compare" />
       <extension name="coverage">
@@ -95,22 +97,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CompareTemplatePartialCompareTest.onlyCheckedProperty_oneIsNull_shouldBeNotEqual" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ez-compare" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="io.github.vincemann.ezcompare.domain.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="io.github.vincemann.ezcompare" />
-      <option name="MAIN_CLASS_NAME" value="io.github.vincemann.ezcompare.CompareTemplatePartialCompareTest" />
-      <option name="METHOD_NAME" value="onlyCheckedProperty_oneIsNull_shouldBeNotEqual" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ShowCaseTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ez-compare" />
       <extension name="coverage">
@@ -122,6 +108,20 @@
       <option name="PACKAGE_NAME" value="io.github.vincemann.ezcompare" />
       <option name="MAIN_CLASS_NAME" value="io.github.vincemann.ezcompare.ShowCaseTests" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.github.vincemann.ezcompare in ez-compare" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ez-compare" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.vincemann.ezcompare.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.vincemann.ezcompare" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -142,11 +142,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.com.github.vincemann.ezcompare in ez-compare" />
         <item itemvalue="JUnit.io.github.vincemann.ezcompare in ez-compare" />
         <item itemvalue="JUnit.CompareTemplateFullCompareTest" />
         <item itemvalue="JUnit.ShowCaseTests" />
         <item itemvalue="JUnit.CompareTemplatePartialCompareTest.entity_selectedPropertiesNotEqual_diffType_shouldBeConsideredNotEqual" />
-        <item itemvalue="JUnit.CompareTemplatePartialCompareTest.onlyCheckedProperty_oneIsNull_shouldBeNotEqual" />
       </list>
     </recent_temporary>
   </component>
@@ -169,7 +169,8 @@
       <workItem from="1591201989958" duration="4986000" />
       <workItem from="1591551276336" duration="2196000" />
       <workItem from="1591685487517" duration="2692000" />
-      <workItem from="1591688878506" duration="145000" />
+      <workItem from="1591688878506" duration="1552000" />
+      <workItem from="1591698144579" duration="679000" />
     </task>
     <servers />
   </component>

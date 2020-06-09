@@ -28,7 +28,7 @@ but instead iterates over the **selected** instance variables of both objects an
 </repositories>  
   
 <dependency>  
-    <groupId>io.github.vincemann</groupId>  
+    <groupId>com.github.vincemann</groupId>  
     <artifactId>ez-compare</artifactId>  
     <version>1.1.0</version>  
 </dependency>  

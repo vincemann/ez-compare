@@ -18,8 +18,8 @@ public class RapidArgumentMatchers {
     public static <T> T fullRefEq(T root, String... ignoredProperties) {
         return fullRefEq(
                 root,
-                Comparison.FullCompareConfig.buildBasedOnGlobal()
-                        .ignoredProperties(Sets.newHashSet(ignoredProperties))
+                FullCompareConfigFactory.buildBasedOnGlobal()
+                        .ignoreProperties(Sets.newHashSet(ignoredProperties))
                         .build()
         );
     }
@@ -28,7 +28,7 @@ public class RapidArgumentMatchers {
         return fullRefEq(root, propertyNamesOf(ignoredGetter));
     }
 
-    public static <T> T fullRefEq(T root, Comparison.FullCompareConfig config) {
+    public static <T> T fullRefEq(T root, FullCompareConfig config) {
         reportMatcher(new RapidReflectionEquals(root, config));
         return null;
     }
@@ -44,13 +44,13 @@ public class RapidArgumentMatchers {
     public static <T> T partialRefEq(T root, String... includedProperties) {
         return partialRefEq(
                 root,
-                Comparison.PartialCompareConfig.buildBasedOnGlobal()
-                        .includedProperties(Sets.newHashSet(includedProperties))
+                PartialCompareConfigFactory.buildBasedOnGlobal()
+                        .includeProperties(Sets.newHashSet(includedProperties))
                         .build()
         );
     }
 
-    public static <T> T partialRefEq(T root, Comparison.PartialCompareConfig config) {
+    public static <T> T partialRefEq(T root, PartialCompareConfig config) {
         reportMatcher(new RapidReflectionEquals(root, config));
         return null;
     }

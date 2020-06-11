@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static com.github.vincemann.ezcompare.Comparison.compare;
+import static com.github.vincemann.ezcompare.Comparator.compare;
 
 
 class CompareTemplateFullCompareTest {
@@ -20,7 +20,7 @@ class CompareTemplateFullCompareTest {
 
     @BeforeEach
     void setUp() {
-        Comparison.globalReset();
+        Comparator.resetGlobalConfig();
     }
 
     @Test

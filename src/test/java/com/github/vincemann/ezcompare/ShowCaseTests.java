@@ -5,7 +5,7 @@ import lombok.Getter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static com.github.vincemann.ezcompare.Comparison.compare;
+import static com.github.vincemann.ezcompare.Comparator.compare;
 import static com.github.vincemann.ezcompare.util.MethodNameUtil.propertyNameOf;
 
 public class ShowCaseTests {
@@ -157,7 +157,8 @@ public class ShowCaseTests {
         //i.E. Name is always diff in database compared to dto + ip irrelevant in dev env
         // -> creating Global Dev Compare Config
         //this could be initialized once in an abstract test ect. and would survive between tests
-        Comparison.modFullCompareGlobalConfig()
+        Comparator.getFullCompareGlobalConfig()
+                .modify()
                 .ignoreProperty(p::getCreatorIp)
                 .ignoreProperty("name")
                 .ignoreNotFound(true)

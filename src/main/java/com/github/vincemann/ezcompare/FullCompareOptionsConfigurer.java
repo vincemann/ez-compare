@@ -4,7 +4,7 @@ public interface FullCompareOptionsConfigurer
         extends CompareOptionsConfigurer{
 
     interface FullCompareConfigConfigurer{
-        public void configure(Comparison.FullCompareConfig config);
+        public void configure(FullCompareConfig config);
     }
 
     public FullCompareOptionsConfigurer ignoreNull(boolean value);

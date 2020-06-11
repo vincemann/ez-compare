@@ -18,6 +18,13 @@ public class ShowCaseTests {
         private Long tel;
         private Integer age;
         private String creatorIp;
+
+        @Override
+        public String toString() {
+            return "Person{" +
+                    "name='" + name + '\'' +
+                    '}';
+        }
     }
 
     @Builder
@@ -27,6 +34,13 @@ public class ShowCaseTests {
         private String address;
         private Long tel;
         private Integer age;
+
+        @Override
+        public String toString() {
+            return "PersonDTO{" +
+                    "name='" + name + '\'' +
+                    '}';
+        }
     }
 
     @Test

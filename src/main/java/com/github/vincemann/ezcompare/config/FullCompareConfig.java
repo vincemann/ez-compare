@@ -1,6 +1,9 @@
-package com.github.vincemann.ezcompare;
+package com.github.vincemann.ezcompare.config;
 
 import com.github.hervian.reflection.Types;
+import com.github.vincemann.ezcompare.AbstractConfigModifier;
+import com.github.vincemann.ezcompare.Comparison;
+import com.github.vincemann.ezcompare.RapidEqualsBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -113,7 +116,7 @@ public class FullCompareConfig  extends RapidEqualsBuilder.CompareConfig{
             super(config);
         }
 
-        FullCompareConfig build() {
+        public FullCompareConfig build() {
             return getConfig();
         }
     }

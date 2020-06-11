@@ -1,6 +1,8 @@
 package com.github.vincemann.ezcompare;
 
 import com.github.hervian.reflection.Types;
+import com.github.vincemann.ezcompare.config.FullCompareConfig;
+import com.github.vincemann.ezcompare.config.PartialCompareConfig;
 import com.google.common.collect.Sets;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -97,7 +99,7 @@ public class Comparison implements
     /**
      * Globally ignored Properties are not included.
      * If you want to add some of them anyways for this specific comparison, use {@link this#configureFullCompare(FullCompareConfigConfigurer)}
-     * and remove them from {@link com.github.vincemann.ezcompare.FullCompareConfig#ignoredProperties} for this specific CompareTemplate.
+     * and remove them from {@link FullCompareConfig#ignoredProperties} for this specific CompareTemplate.
      */
     @Override
     public FullComparePropertyConfigurer all() {
@@ -127,13 +129,13 @@ public class Comparison implements
 
     @Override
     public FullCompareOptionsConfigurer configureFullCompare(FullCompareConfigConfigurer configurer) {
-        configurer.configure(fullCompareConfig);
+        configurer.configure(fullCompareConfig.modify());
         return this;
     }
 
     @Override
     public PartialCompareOptionsConfigurer configurePartialCompare(PartialCompareConfigConfigurer configurer) {
-        configurer.configure(partialCompareConfig);
+        configurer.configure(partialCompareConfig.modify());
         return this;
     }
 

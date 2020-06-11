@@ -190,7 +190,7 @@ class CompareTemplateFullCompareTest {
 
 
         ResultProvider resultProvider = compare(child).with(parent)
-                .configureFullCompare(config -> config.setUseNullForNotFound(true))
+                .configureFullCompare(config -> config.useNullForNotFound(true))
                 .properties()
                 .all()
                 .ignore(child::getParent)
@@ -218,7 +218,7 @@ class CompareTemplateFullCompareTest {
 
 
         boolean equal = compare(child).with(parent)
-                .configureFullCompare((config) -> config.setUseNullForNotFound(true))
+                .configureFullCompare((config) -> config.useNullForNotFound(true))
                 .properties()
                 .all()
                 .ignore(child::getParent)

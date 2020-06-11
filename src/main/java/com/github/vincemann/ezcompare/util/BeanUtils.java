@@ -8,6 +8,9 @@ public class BeanUtils {
 
     private BeanUtils(){}
 
+    /**
+     * Shallow Copy!
+     */
     public static <T> T clone(T o){
         try {
             return (T) BeanUtilsBean.getInstance().cloneBean(o);

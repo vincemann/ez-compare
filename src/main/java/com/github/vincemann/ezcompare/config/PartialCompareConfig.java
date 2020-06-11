@@ -1,5 +1,8 @@
-package com.github.vincemann.ezcompare;
+package com.github.vincemann.ezcompare.config;
 
+import com.github.vincemann.ezcompare.AbstractConfigModifier;
+import com.github.vincemann.ezcompare.Comparison;
+import com.github.vincemann.ezcompare.RapidEqualsBuilder;
 import com.github.vincemann.ezcompare.util.ReflectionUtils;
 import com.google.common.collect.Sets;
 import lombok.ToString;
@@ -63,7 +66,7 @@ public class PartialCompareConfig extends RapidEqualsBuilder.CompareConfig{
             super(config);
         }
 
-        PartialCompareConfig build() {
+        public PartialCompareConfig build() {
             return getConfig();
         }
 

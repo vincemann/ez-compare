@@ -1,18 +1,9 @@
 package com.github.vincemann.ezcompare;
 
-import com.github.hervian.reflection.Types;
-import com.github.vincemann.ezcompare.util.BeanUtils;
-import com.github.vincemann.ezcompare.util.ReflectionUtils;
-import com.google.common.collect.Sets;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import static com.github.vincemann.ezcompare.util.MethodNameUtil.propertyNameOf;
+import com.github.vincemann.ezcompare.config.FullCompareConfig;
+import com.github.vincemann.ezcompare.config.FullCompareConfigFactory;
+import com.github.vincemann.ezcompare.config.PartialCompareConfig;
+import com.github.vincemann.ezcompare.config.PartialCompareConfigFactory;
 
 /**
  * Factory for {@link Comparison}.

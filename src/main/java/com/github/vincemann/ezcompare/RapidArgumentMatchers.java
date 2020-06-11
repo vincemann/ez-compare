@@ -1,6 +1,10 @@
 package com.github.vincemann.ezcompare;
 
 import com.github.hervian.reflection.Types;
+import com.github.vincemann.ezcompare.config.FullCompareConfig;
+import com.github.vincemann.ezcompare.config.FullCompareConfigFactory;
+import com.github.vincemann.ezcompare.config.PartialCompareConfig;
+import com.github.vincemann.ezcompare.config.PartialCompareConfigFactory;
 import com.google.common.collect.Sets;
 import org.mockito.ArgumentMatcher;
 

@@ -163,7 +163,7 @@ public class Comparison implements
         boolean equal = performEqualCheck();
         //get better assert msg in test
         getDiff().getDiffNodes().forEach(diffNode -> {
-            Assertions.assertEquals(diffNode.getRootValue(),diffNode.getCompareValue());
+            Assertions.assertEquals(diffNode.getRootValue(),diffNode.getCompareValue(),"property: "+diffNode.getProperty() + " does not match");
         });
         Assertions.assertTrue(equal);
         return this;
@@ -174,7 +174,7 @@ public class Comparison implements
         boolean equal = performEqualCheck();
         //get better assert msg in test
         getDiff().getDiffNodes().forEach(diffNode -> {
-            Assertions.assertNotEquals(diffNode.getRootValue(),diffNode.getCompareValue());
+            Assertions.assertNotEquals(diffNode.getRootValue(),diffNode.getCompareValue(),"property: "+diffNode.getProperty() + " must not match");
         });
         Assertions.assertFalse(equal);
         return this;

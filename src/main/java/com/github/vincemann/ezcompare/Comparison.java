@@ -90,8 +90,9 @@ public class Comparison implements
 
     @Override
     public FullComparePropertyConfigurer ignore(FieldNameMatcher fieldNameMatcher) {
+        fullCompare = true;
         fullCompareConfig.getIgnoreFieldMatchers().add(fieldNameMatcher);
-        return null;
+        return this;
     }
 
     @Override

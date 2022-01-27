@@ -2,6 +2,7 @@ package com.github.vincemann.ezcompare;
 
 import com.github.vincemann.ezcompare.domain.IdentifiableEntityImpl;
 import com.github.vincemann.ezcompare.util.MethodNameUtil;
+import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,6 +36,33 @@ class CompareTemplateFullCompareTest {
         //when
         boolean equal = fullEqualCompare(parent, equalParent);
         //then
+        Assertions.assertTrue(equal);
+    }
+
+    @Test
+    void allValuesSameExceptIdFields_ignoreIdFields() throws Exception {
+        //given
+        IdParent parent = new IdParent();
+        parent.setAge(42);
+        parent.setName("Meier");
+        parent.setId(24L);
+        parent.setId(12L);
+        parent.setCompanyId(213L);
+        parent.setPersonIds(Sets.newHashSet(1L,2L,3L));
+
+
+        IdParent equalParent = new IdParent(parent);
+        equalParent.setCompanyId(1323213L);
+        equalParent.setPersonIds(Sets.newHashSet(1L,2L,5L,4L));
+
+        boolean equal = compare(parent)
+                .with(equalParent)
+                .properties()
+                .all()
+                .ignore(fieldName -> fieldName.length() > 2 && fieldName.contains("Id"))
+                .go()
+                .isEqual();
+
         Assertions.assertTrue(equal);
     }
 
@@ -259,6 +287,25 @@ class CompareTemplateFullCompareTest {
 
         public Parent(Parent copy) {
             this(copy.name, copy.age, copy.child, copy.childSet);
+            setId(copy.getId());
+        }
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    class IdParent extends IdentifiableEntityImpl<Long> {
+        String name;
+        int age;
+        Child child;
+        Set<Child> childSet;
+        Long companyId;
+        Set<Long> personIds;
+
+
+        public IdParent(IdParent copy) {
+            this(copy.name, copy.age, copy.child, copy.childSet,copy.companyId,copy.personIds);
             setId(copy.getId());
         }
     }

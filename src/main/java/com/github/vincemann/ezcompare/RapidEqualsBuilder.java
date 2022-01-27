@@ -37,6 +37,8 @@ public class RapidEqualsBuilder {
      */
     @ToString
     public static class CompareConfig {
+
+        protected Set<FieldNameMatcher> ignoreFieldMatchers = new HashSet<>();
         //                                                 default config
         /**
          * Set to true, if root field should be ignored in comparison process, if its value in root is null.
@@ -86,6 +88,9 @@ public class RapidEqualsBuilder {
             minimalDiff=v;
         }
 
+        public Set<FieldNameMatcher> getIgnoreFieldMatchers() {
+            return ignoreFieldMatchers;
+        }
     }
     /**
      * <p>Constructor for RapidEqualsBuilder.</p>
@@ -190,6 +195,13 @@ public class RapidEqualsBuilder {
                 }
 
                 Field compareField = FieldUtils.getField(compareClass, property, true);
+
+                for (FieldNameMatcher ignoreFieldMatcher : config.ignoreFieldMatchers) {
+                    if (ignoreFieldMatcher.matches(compareField.getName()) ||
+                            ignoreFieldMatcher.matches(rootField.getName())) {
+                        continue;
+                    }
+                }
                 Object compareValue;
                 if (compareField==null){
                     log.log(Level.INFO,"Did not find property: " + property + " in compare object: " + compare);

@@ -89,6 +89,12 @@ public class Comparison implements
     }
 
     @Override
+    public FullComparePropertyConfigurer ignore(FieldNameMatcher fieldNameMatcher) {
+        fullCompareConfig.getIgnoreFieldMatchers().add(fieldNameMatcher);
+        return null;
+    }
+
+    @Override
     public FullComparePropertyConfigurer ignore(String... propertyNames) {
         fullCompare = true;
         fullCompareConfig.getIgnoredProperties().addAll(Sets.newHashSet(propertyNames));

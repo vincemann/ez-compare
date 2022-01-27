@@ -198,8 +198,13 @@ public class RapidEqualsBuilder {
 
                 boolean fieldNameIgnoreMatch = false;
                 for (FieldNameMatcher ignoreFieldMatcher : config.ignoreFieldMatchers) {
-                    if(ignoreFieldMatcher.matches(compareField.getName()) ||
-                                ignoreFieldMatcher.matches(rootField.getName())){
+                    if (compareField != null){
+                        if (ignoreFieldMatcher.matches(compareField.getName())){
+                            fieldNameIgnoreMatch = true;
+                            break;
+                        }
+                    }
+                    if(ignoreFieldMatcher.matches(rootField.getName())){
                         fieldNameIgnoreMatch = true;
                         break;
                     }

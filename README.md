@@ -42,7 +42,7 @@ repositories {
     maven { url "https://jitpack.io" }  
 }  
 dependencies {  
-     implementation 'com.github.vincemann:ez-compare:1.0.0-SNAPSHOT.2'  
+     implementation 'com.github.vincemann:ez-compare:1.0.0-SNAPSHOT.3'  
 }  
 ```
  

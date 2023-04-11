@@ -30,7 +30,7 @@ but instead iterates over the **selected** instance variables of both objects an
 <dependency>  
     <groupId>com.github.vincemann</groupId>  
     <artifactId>ez-compare</artifactId>  
-    <version>1.0.0-SNAPSHOT.2</version>  
+    <version>1.0.0-SNAPSHOT.3</version>  
 </dependency>  
 ```  
 

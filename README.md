@@ -33,18 +33,7 @@ but instead iterates over the **selected** instance variables of both objects an
     <version>1.0.0-SNAPSHOT.2</version>  
 </dependency>  
 ```  
- 
-### Gradle  
-   
-```code
-repositories {  
-    jcenter()  
-    maven { url "https://jitpack.io" }  
-}  
-dependencies {  
-     implementation 'com.github.vincemann:ez-compare:1.0.0-SNAPSHOT.3'  
-}  
-```
+
  
 ## Simple Example    
   
